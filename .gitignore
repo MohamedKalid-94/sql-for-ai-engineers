@@ -1,13 +1,13 @@
 # Virtual Environment
 .venv/
 
-# Python Cache
+# Python cache
 __pycache__/
 *.pyc
 
-# SQLite Database
-database/*.db
-database/backup/*.db
+# SQLite database files
+*.db
+*.sqlite3
 
 # VS Code
 .vscode/
