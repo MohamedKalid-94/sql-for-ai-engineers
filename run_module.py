@@ -58,7 +58,7 @@ scripts = sorted(
         file
         for file in MODULE_PATH.glob("*.py")
         if file.name[:2].isdigit()
-        and not file.name.startswith("99")
+        and not file.name.startswith(("98", "99"))
     ]
 )
 
