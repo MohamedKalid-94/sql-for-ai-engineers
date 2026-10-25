@@ -1,0 +1,12 @@
+-- Numeric Functions
+
+SELECT ABS(-25);
+
+SELECT ROUND(123.4567,2);
+
+SELECT RANDOM();
+
+SELECT MOD(15,4);
+
+SELECT ROUND(AVG(salary),0)
+FROM employees;

@@ -1,8 +1,27 @@
 # SQL for AI Engineers 🚀
 
-A hands-on SQL learning and implementation repository designed for AI Engineers to build strong database foundations required for Data Engineering, Machine Learning, Generative AI, RAG Systems, and AI Applications.
+A comprehensive SQL learning repository with SQL scripts, Python (`sqlite3`) implementations, documentation, and automated execution—designed specifically for AI Engineers.
 
-This repository contains hands-on SQL concepts implemented using **SQLite** and **Python (`sqlite3`)**, organized into modular lessons with SQL scripts, Python implementations, documentation, automated execution, and output logs.
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![SQLite](https://img.shields.io/badge/SQLite-Database-green)
+![SQL](https://img.shields.io/badge/SQL-Learning-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Status](https://img.shields.io/badge/Modules-10%20Completed-brightgreen)
+
+SQL is one of the core skills required for modern AI Engineers.
+
+This repository prepares you for building:
+
+- Machine Learning Applications
+- Data Engineering Pipelines
+- Retrieval-Augmented Generation (RAG)
+- AI Chatbots
+- Agentic AI Systems
+- Multi-Agent Workflows
+- FastAPI Backend Services
+- Document Management Systems
+- Vector Database Metadata Storage
+- AI Conversation History
 
 Each module includes:
 
@@ -11,6 +30,29 @@ Each module includes:
 - Documentation
 - Automated execution using `run_module.py`
 - Execution output logs
+
+# 📑 Table of Contents
+
+- [Project Overview](#-sql-for-ai-engineers-)
+- [Project Goal](#-project-goal)
+- [Technology Stack](#-technology-stack)
+- [Why SQLite?](#-why-sqlite)
+- [Repository Structure](#-repository-structure)
+- [Project Screenshots](#-project-screenshots)
+- [Setup Instructions](#️-setup-instructions)
+- [Running the Project](#️-running-the-project)
+- [Learning Modules](#-learning-modules)
+- [Connection With AI Engineering](#-connection-with-ai-engineering)
+- [Future Integration Goals](#-future-integration-goals)
+- [Learning Progress](#-learning-progress)
+- [Repository Achievements](#-repository-achievements)
+- [Features](#-features)
+- [Repository Statistics](#-repository-statistics)
+- [Upcoming Modules](#-upcoming-modules)
+- [Ideal For](#-ideal-for)
+- [Support](#-support)
+- [License](#-license)
+- [Author](#-author)
 
 ---
 
@@ -42,34 +84,77 @@ This project builds SQL skills from beginner to advanced level through practical
 
 ---
 
+# ❓ Why SQLite?
+
+SQLite is used throughout this repository because:
+
+- No installation required
+- Cross-platform
+- Lightweight and fast
+- Beginner friendly
+- Supports most SQL concepts
+- Perfect for learning SQL before moving to MySQL, PostgreSQL, or SQL Server
+
+> **Note**
+>
+> SQLite does not support some SQL Server or MySQL features such as:
+>
+> - Stored Procedures
+> - RIGHT JOIN
+> - FULL JOIN
+> - SEQUENCE
+> - Clustered Index
+>
+> Wherever these features are unavailable, this repository demonstrates SQLite-compatible alternatives while preserving the original SQL concept.
+
+---
+
 # 📂 Repository Structure
 
 ```
 sql-for-ai-engineers/
 
-│
 ├── database/
-│   └── SQLite database files
+│   ├── company.db
+│   └── backup/
 │
 ├── docs/
-│   └── Module documentation
+│   ├── Module_01_Database.md
+│   ├── Module_02_Tables.md
+│   ├── ...
+│   └── Module_10_SQL_Functions.md
 │
 ├── outputs/
-│   └── Execution logs
+│   ├── Module_01_Database.txt
+│   ├── Module_02_Tables.txt
+│   └── ...
 │
 ├── python/
 │   ├── config.py
-│   └── Module implementations
+│   ├── Module_01_Database/
+│   ├── ...
+│   └── Module_10_SQL_Functions/
 │
 ├── sql/
-│   └── SQL command examples
+│   ├── Module_01_Database/
+│   ├── ...
+│   └── Module_10_SQL_Functions/
 │
 ├── run_module.py
-│
 ├── requirements.txt
-│
 └── README.md
 ```
+
+---
+
+# 📸 Project Screenshots
+
+## Module Execution
+![Execution Output](assets/execution_output.png)
+
+
+## Repository Structure
+![Folder Structure](assets/folder_structure.png)
 
 ---
 
@@ -287,13 +372,19 @@ outputs/
 
 ---
 
-## ⏳ Module 10: SQL Functions
+## ✅ Module 10: SQL Functions
 
-- Aggregate Functions
-- String Functions
-- Numeric Functions
 - Date Functions
+- String Functions
+- Aggregate Functions
+- Numeric Functions
+- Text & Image Functions
+- Statistical Functions
+- Logical Functions
+- Cursor Functions (SQLite Equivalent)
+- JSON Functions
 - Conversion Functions
+- Datatype Functions
 
 ---
 
@@ -306,19 +397,24 @@ SQL knowledge is important for building:
 Example:
 
 ```
-User
- |
-Application
- |
-FastAPI
- |
-SQL Database
- |
-Document Metadata
- |
-Vector Database
- |
-LLM
+                 User
+                   │
+             AI Application
+                   │
+               FastAPI API
+                   │
+        ┌──────────┴──────────┐
+        │                     │
+   SQL Database         Vector Database
+        │                     │
+ Users • Chats          Embeddings
+ Projects               Chunks
+ Metadata               Similarity Search
+        └──────────┬──────────┘
+                   │
+                  LLM
+                   │
+               AI Response
 ```
 
 SQL stores:
@@ -360,21 +456,98 @@ This repository will later connect with:
 | Module 07 - SQL Keys | ✅ Completed |
 | Module 08 - SQL Indexes | ✅ Completed |
 | Module 09 - Advanced SQL | ✅ Completed |
-| Module 10 - SQL Functions | ⏳ Planned |
+| Module 10 - SQL Functions | ✅ Completed |
+
+---
+
+# 🏆 Repository Achievements
+
+✔ 10 Completed Modules
+✔ 110+ SQL Examples
+✔ 110+ Python (`sqlite3`) Examples
+✔ Automated Module Runner
+✔ SQLite-Compatible SQL Implementations
+✔ AI Engineering Focused Learning Path
 
 ---
 
 # ✨ Features
 
-- Modular SQL learning path
-- SQLite-based examples
-- Python (`sqlite3`) implementation for every SQL script
-- Automated module execution (`run_module.py`)
+- 100+ SQL examples
+- Equivalent Python (`sqlite3`) implementation
 - Module-wise documentation
-- Output logs for every execution
-- Beginner-friendly and AI Engineer focused
+- Automated execution using `run_module.py`
+- Execution logs for every module
+- SQLite-compatible alternatives for unsupported SQL features
+- AI Engineer focused learning path
+- Beginner-friendly code with practical examples
+
+---
+
+# 📊 Repository Statistics
+
+- 110+ SQL examples
+- 110+ Python (`sqlite3`) examples
+- 10 complete learning modules
+- Module-wise documentation
+- Automated execution runner
+- SQLite-compatible implementations
+- AI Engineer–focused examples
+- Beginner-friendly explanations
+- Consistent SQL ↔ Python comparison
+
+---
+
+# 🚀 Upcoming Modules
+
+- Module 11 – SQL Window Functions
+- Module 12 – SQL Triggers
+- Module 13 – SQL Stored Procedures (SQL Server)
+- Module 14 – SQL Transactions (Advanced)
+- Module 15 – SQL Performance Optimization
+- Module 16 – SQL Interview Questions
+- Module 17 – SQL + Pandas
+- Module 18 – SQLAlchemy ORM
+- Module 19 – PostgreSQL for AI
+- Module 20 – SQL in RAG & AI Applications
+
+---
+
+# 💼 Ideal For
+
+This repository is useful for:
+
+- Students
+- Software Engineers
+- Data Engineers
+- Machine Learning Engineers
+- Generative AI Engineers
+- AI Application Developers
+- Anyone preparing for SQL interviews
+
+---
+
+# ⭐ Support
+
+If this repository helps you learn SQL for AI Engineering, consider giving it a ⭐ on GitHub.
+
+It helps others discover the project and motivates future improvements.
+
+---
+
+# 📄 License
+
+This project is released under the MIT License.
+
+You are free to use it for learning, teaching, and personal projects.
+
+---
 
 # 👨‍💻 Author
 
-Mohamed Kalid
+**Mohamed Kalid**
 
+AI Engineer | Python | SQL | GenAI | RAG | Agentic AI
+
+- GitHub: https://github.com/MohamedKalid-94
+- LinkedIn: https://www.linkedin.com/in/mohamed-kalid-4618921a7

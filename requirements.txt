@@ -1,2 +1,18 @@
-# Module 1 uses only the Python standard library.
-# No external packages required.
+# Core
+python-dotenv>=1.0
+
+# Data Processing
+pandas>=2.0
+
+# Database ORM
+SQLAlchemy>=2.0
+
+# Backend API
+fastapi>=0.100
+uvicorn>=0.20
+
+# Validation
+pydantic>=2.0
+
+# PostgreSQL
+psycopg2-binary>=2.9
