@@ -193,18 +193,32 @@ outputs/
 
 ---
 
-## ⏳ Module 05: SQL Operators & Clauses
+## ✅ Module 05: SQL Operators and Clauses 
 
-- WHERE
-- GROUP BY
-- HAVING
-- ORDER BY
-- LIKE
-- IN
-- BETWEEN
-- CASE
-- UNION
-- INTERSECT
+- WHERE Clause
+- TOP / LIMIT Clause
+- DISTINCT Clause
+- ORDER BY Clause
+- GROUP BY Clause
+- HAVING Clause
+- AND & OR Operators
+- BOOLEAN Operator
+- LIKE Operator
+- IN Operator
+- ANY / ALL Operators
+- EXISTS Operator
+- CASE Expression
+- NOT Operator
+- NOT EQUAL Operator
+- IS NULL
+- IS NOT NULL
+- NOT NULL Constraint
+- BETWEEN Operator
+- UNION Operator
+- UNION vs UNION ALL
+- INTERSECT Operator
+- EXCEPT Operator
+- Aliases
 
 ---
 
@@ -318,7 +332,7 @@ This repository will later connect with:
 | Module 02 - SQL Tables | ✅ Completed |
 | Module 03 - SQL Queries | ✅ Completed |
 | Module 04 - SQL Views | ✅ Completed |
-| Module 05 - SQL Operators | ⏳ Planned |
+| Module 05 - SQL Operators | ✅ Completed |
 | Module 06 - SQL Joins | ⏳ Planned |
 | Module 07 - SQL Keys | ⏳ Planned |
 | Module 08 - SQL Indexes | ⏳ Planned |

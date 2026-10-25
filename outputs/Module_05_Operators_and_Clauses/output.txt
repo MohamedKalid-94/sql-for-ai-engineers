@@ -1,0 +1,315 @@
+======================================================================
+Module_05_Operators_and_Clauses
+Generated: 2026-10-25 15:21:12.797550
+======================================================================
+======================================================================
+00_insert_sample_data.py
+======================================================================
+Sample data inserted successfully
+======================================================================
+01_where_clause.py
+======================================================================
+Employees Salary > 80000
+------------------------
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+======================================================================
+02_top_clause.py
+======================================================================
+Top 5 Employees
+----------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+======================================================================
+03_distinct_clause.py
+======================================================================
+Unique Departments
+------------------
+(1,)
+(2,)
+(3,)
+(5,)
+(4,)
+======================================================================
+04_order_by_clause.py
+======================================================================
+Employees Ordered By Salary
+---------------------------
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
+(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
+======================================================================
+05_group_by_clause.py
+======================================================================
+Employee Count Department Wise
+------------------------------
+(1, 3)
+(2, 2)
+(3, 2)
+(4, 1)
+(5, 2)
+======================================================================
+06_having_clause.py
+======================================================================
+Departments Having More Than 1 Employee
+----------------------------------------
+(1, 3)
+(2, 2)
+(3, 2)
+(5, 2)
+======================================================================
+07_and_or_operator.py
+======================================================================
+AND Operator Result
+------------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+
+OR Operator Result
+-----------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+======================================================================
+08_boolean_bit_operator.py
+======================================================================
+Active Employees
+----------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
+(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+======================================================================
+09_like_operator.py
+======================================================================
+Employees Name Starts With S
+-----------------------------
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+======================================================================
+10_in_operator.py
+======================================================================
+Employees From Departments 1,2,5
+--------------------------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+======================================================================
+11_any_all_operator.py
+======================================================================
+ANY Equivalent Result
+--------------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
+(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+
+ALL Equivalent Result
+--------------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
+(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+======================================================================
+12_exists_operator.py
+======================================================================
+Employees With Valid Departments
+--------------------------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
+(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+======================================================================
+13_case_expression.py
+======================================================================
+Salary Category
+----------------
+('John', 75000.0, 'Medium Salary')
+('Sara', 85000.0, 'Medium Salary')
+('David', 65000.0, 'Low Salary')
+('Priya', 90000.0, 'High Salary')
+('Alex', 72000.0, 'Medium Salary')
+('Maria', 78000.0, 'Medium Salary')
+('Ahmed', 68000.0, 'Low Salary')
+('Sophia', 95000.0, 'High Salary')
+('James', 61000.0, 'Low Salary')
+('Emma', 82000.0, 'Medium Salary')
+======================================================================
+14_not_operator.py
+======================================================================
+Employees Not In Department 1
+-----------------------------
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+======================================================================
+15_not_equal_operator.py
+======================================================================
+Employees Not In Department 1
+-----------------------------
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+======================================================================
+16_is_null_operator.py
+======================================================================
+Employees With NULL Joining Date
+--------------------------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
+(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
+(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+======================================================================
+17_is_not_null_operator.py
+======================================================================
+Employees With Joining Date
+---------------------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, '2026-01-01', 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, '2026-01-01', 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, None, '2026-01-01', 1)
+======================================================================
+18_not_null_constraint.py
+======================================================================
+NOT NULL constraint table created
+Sample record inserted successfully
+======================================================================
+19_between_operator.py
+======================================================================
+Employees Salary Between 70000 and 90000
+----------------------------------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, '2026-01-01', 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, '2026-01-01', 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
+(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+======================================================================
+20_union_operator.py
+======================================================================
+UNION Result
+-------------
+('Ahmed',)
+('John',)
+('Priya',)
+('Sara',)
+('Sophia',)
+======================================================================
+21_union_vs_union_all.py
+======================================================================
+UNION Result
+------------
+(1,)
+(2,)
+(3,)
+
+UNION ALL Result
+----------------
+(1,)
+(2,)
+(1,)
+(1,)
+(2,)
+(2,)
+(3,)
+(2,)
+(3,)
+======================================================================
+22_intersect_operator.py
+======================================================================
+INTERSECT Result
+----------------
+('John',)
+('Priya',)
+======================================================================
+23_except_operator.py
+======================================================================
+EXCEPT Result
+-------------
+('Alex',)
+('David',)
+('Emma',)
+('James',)
+('Maria',)
+('Sara',)
+('Sophia',)
+======================================================================
+24_aliases.py
+======================================================================
+Column Alias Result
+-------------------
+('John', 75000.0)
+('Sara', 85000.0)
+('David', 65000.0)
+('Priya', 90000.0)
+('Alex', 72000.0)
+('Maria', 78000.0)
+('Ahmed', 68000.0)
+('Sophia', 95000.0)
+('James', 61000.0)
+('Emma', 82000.0)
+
+Table Alias Result
+------------------
+('John', 75000.0)
+('Sara', 85000.0)
+('David', 65000.0)
+('Priya', 90000.0)
+('Alex', 72000.0)
+('Maria', 78000.0)
+('Ahmed', 68000.0)
+('Sophia', 95000.0)
+('James', 61000.0)
+('Emma', 82000.0)

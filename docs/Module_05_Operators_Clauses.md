@@ -1,179 +1,421 @@
-# Module 04 - SQL Views
+# Module 05: SQL Operators and Clauses 🚀
 
-## Objective
+This module covers SQL operators and clauses used for filtering, sorting, grouping, conditional logic, NULL handling, and combining query results.
 
-Learn how to create, modify, remove, and rename SQL Views using SQL and their equivalent implementation in Python (`sqlite3`).
+Implementation is done using:
 
-Views provide a virtual table that simplifies complex queries and improves data abstraction.
+- SQL
+- Python
+- SQLite Database
 
----
-
-## Topics Covered
-
-1. Create View
-2. Update View (SQLite Equivalent)
-3. Drop View
-4. Rename View (SQLite Equivalent)
 
 ---
 
-## Folder Structure
+# 🎯 Learning Objectives
 
-```
-Module_04_Database
+After completing this module, you will understand:
 
-SQL
-│
-├── 01_create_view.sql
-├── 02_update_view.sql
-├── 03_drop_view.sql
-└── 04_rename_view.sql
+- Filtering records using SQL conditions
+- Sorting and grouping data
+- Applying logical operators
+- Handling NULL values
+- Using conditional expressions
+- Combining multiple query results
 
-Python
-│
-├── 01_create_view.py
-├── 02_update_view.py
-├── 03_drop_view.py
-└── 04_rename_view.py
-```
 
 ---
 
-# Concepts Learned
+# 📚 Topics Covered
 
-## CREATE VIEW
 
-Creates a virtual table based on a SQL query.
+## 01. WHERE Clause
 
-Example
+Filter records based on conditions.
+
+Example:
 
 ```sql
-CREATE VIEW employee_details AS
+SELECT *
+FROM employees
+WHERE salary > 70000;
+```
 
-SELECT
-    e.emp_id,
-    e.name,
-    e.email,
-    e.salary,
-    d.department_name
+
+---
+
+## 02. TOP Clause
+
+SQLite equivalent:
+
+```sql
+LIMIT
+```
+
+Example:
+
+```sql
+SELECT *
+FROM employees
+LIMIT 5;
+```
+
+
+---
+
+## 03. DISTINCT Clause
+
+Removes duplicate values.
+
+```sql
+SELECT DISTINCT dept_id
+FROM employees;
+```
+
+
+---
+
+## 04. ORDER BY Clause
+
+Sort query results.
+
+```sql
+SELECT *
+FROM employees
+ORDER BY salary DESC;
+```
+
+
+---
+
+## 05. GROUP BY Clause
+
+Groups records for aggregate operations.
+
+```sql
+SELECT dept_id, COUNT(*)
+FROM employees
+GROUP BY dept_id;
+```
+
+
+---
+
+## 06. HAVING Clause
+
+Filters grouped results.
+
+```sql
+SELECT dept_id, AVG(salary)
+FROM employees
+GROUP BY dept_id
+HAVING AVG(salary)>70000;
+```
+
+
+---
+
+## 07. AND & OR Operators
+
+Combine multiple conditions.
+
+```sql
+SELECT *
+FROM employees
+WHERE salary > 70000
+AND dept_id = 1;
+```
+
+
+---
+
+## 08. BOOLEAN Operator
+
+Used for TRUE/FALSE conditions.
+
+SQLite uses:
+
+```
+0 = False
+1 = True
+```
+
+
+---
+
+## 09. LIKE Operator
+
+Pattern matching.
+
+```sql
+SELECT *
+FROM employees
+WHERE name LIKE 'J%';
+```
+
+
+---
+
+## 10. IN Operator
+
+Multiple value comparison.
+
+```sql
+SELECT *
+FROM employees
+WHERE dept_id IN (1,2,3);
+```
+
+
+---
+
+## 11. ANY / ALL Operators
+
+SQLite equivalent using:
+
+- MIN()
+- MAX()
+- Subqueries
+
+
+---
+
+## 12. EXISTS Operator
+
+Checks whether records exist.
+
+```sql
+SELECT *
 FROM employees e
-INNER JOIN departments d
-ON e.dept_id = d.dept_id;
+WHERE EXISTS
+(
+SELECT 1
+FROM departments d
+WHERE d.dept_id=e.dept_id
+);
 ```
+
 
 ---
 
-## UPDATE VIEW
+## 13. CASE Expression
 
-SQLite does not support
+Conditional logic in SQL.
 
 ```sql
-CREATE OR REPLACE VIEW
+CASE
+WHEN salary >=90000 THEN 'High'
+ELSE 'Normal'
+END
 ```
 
-Equivalent approach
-
-1. Drop the existing view.
-2. Create the view again with the updated definition.
 
 ---
 
-## DROP VIEW
+## 14. NOT Operator
 
-Removes an existing view from the database.
-
-Example
+Reverse conditions.
 
 ```sql
-DROP VIEW IF EXISTS employee_details;
+SELECT *
+FROM employees
+WHERE NOT dept_id=1;
 ```
+
 
 ---
 
-## RENAME VIEW
+## 15. NOT EQUAL Operator
 
-SQLite does not support
+Operators:
+
+```
+!=
+<>
+```
+
+
+Example:
 
 ```sql
-ALTER VIEW view_name RENAME TO new_view_name;
+WHERE dept_id <> 1
 ```
 
-Equivalent approach
-
-1. Drop the old view.
-2. Create a new view with the desired name.
 
 ---
 
-# Python Concepts
+## 16. IS NULL
 
-This module demonstrates
+Find missing values.
 
-- sqlite3
-- connect()
-- cursor()
-- execute()
-- commit()
-- close()
+```sql
+WHERE joining_date IS NULL
+```
+
 
 ---
 
-# Execution Order
+## 17. IS NOT NULL
 
+Find available values.
+
+```sql
+WHERE joining_date IS NOT NULL
 ```
-01_create_view.py
-        ↓
-02_update_view.py
-        ↓
-03_drop_view.py
-        ↓
-04_rename_view.py
-```
+
 
 ---
 
-# Output
+## 18. NOT NULL Constraint
 
-Execute the module using
+Prevents empty values during insertion.
 
-```bash
-python run_module.py
+
+Example:
+
+```sql
+name TEXT NOT NULL
 ```
 
-Generated output
-
-```
-outputs/
-└── Module_04_Database/
-    └── output.txt
-```
 
 ---
 
-# Learning Outcome
+## 19. BETWEEN Operator
 
-After completing this module, you will be able to
+Range filtering.
 
-- Create SQL Views
-- Modify Views using the SQLite equivalent approach
-- Drop Views
-- Rename Views using the SQLite equivalent approach
-- Access data through virtual tables
-- Understand the advantages and limitations of SQL Views
+```sql
+WHERE salary BETWEEN 70000 AND 90000
+```
+
 
 ---
 
-# SQLite Notes
+## 20. UNION Operator
 
-SQLite does not support:
+Combines results and removes duplicates.
 
-- CREATE OR REPLACE VIEW
-- ALTER VIEW ... RENAME TO
-
-These operations are implemented by dropping and recreating the view.
 
 ---
 
-# Status
+## 21. UNION vs UNION ALL
 
-✅ Module 04 Completed
+
+| Operator | Duplicate |
+|---|---|
+| UNION | Removes duplicates |
+| UNION ALL | Keeps duplicates |
+
+
+---
+
+## 22. INTERSECT Operator
+
+Returns common records.
+
+
+---
+
+## 23. EXCEPT Operator
+
+Returns records from first query but not second query.
+
+
+---
+
+## 24. Aliases
+
+Temporary names for tables or columns.
+
+
+Example:
+
+```sql
+SELECT
+name AS employee_name
+FROM employees;
+```
+
+
+---
+
+# 📂 Module Structure
+
+
+```
+Module_05_Operators_and_Clauses
+
+sql/
+
+01_where_clause.sql
+02_top_clause.sql
+...
+24_aliases.sql
+
+
+python/
+
+01_where_clause.py
+02_top_clause.py
+...
+24_aliases.py
+```
+
+
+---
+
+# 🤖 AI Engineering Connection
+
+
+SQL operators are important for AI applications:
+
+
+- Filtering user data
+- Querying document metadata
+- Managing AI conversations
+- Searching application records
+- Building backend APIs
+
+
+Example RAG Application:
+
+
+```
+User Query
+
+     |
+     
+FastAPI
+
+     |
+
+SQL Database
+
+     |
+
+Document Metadata
+
+     |
+
+Vector Database
+
+     |
+
+LLM
+```
+
+
+---
+
+# ✅ Module Status
+
+Completed:
+
+- WHERE
+- ORDER BY
+- GROUP BY
+- HAVING
+- Operators
+- NULL Handling
+- Set Operators
+- Aliases
+
