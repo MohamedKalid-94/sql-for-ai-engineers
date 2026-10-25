@@ -222,14 +222,19 @@ outputs/
 
 ---
 
-## ⏳ Module 06: SQL Joins
+## ✅ Module 06: SQL Joins 
 
+- USING JOIN
 - INNER JOIN
 - LEFT JOIN
-- RIGHT JOIN*
-- FULL JOIN*
+- RIGHT JOIN
 - CROSS JOIN
+- FULL JOIN
 - SELF JOIN
+- DELETE JOIN
+- UPDATE JOIN
+- LEFT JOIN vs RIGHT JOIN
+- UNION vs JOIN
 
 > *RIGHT JOIN and FULL JOIN are demonstrated using SQLite-compatible alternatives.
 
@@ -333,7 +338,7 @@ This repository will later connect with:
 | Module 03 - SQL Queries | ✅ Completed |
 | Module 04 - SQL Views | ✅ Completed |
 | Module 05 - SQL Operators | ✅ Completed |
-| Module 06 - SQL Joins | ⏳ Planned |
+| Module 06 - SQL Joins | ✅ Completed |
 | Module 07 - SQL Keys | ⏳ Planned |
 | Module 08 - SQL Indexes | ⏳ Planned |
 | Module 09 - Advanced SQL | ⏳ Planned |
