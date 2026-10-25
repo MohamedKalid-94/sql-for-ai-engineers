@@ -250,12 +250,15 @@ outputs/
 
 ---
 
-## ⏳ Module 08: SQL Indexes
+## ✅ Module 08: SQL Indexes 
 
+- SQL Indexes
 - Create Index
-- Unique Index
-- Composite Index
 - Drop Index
+- Show Indexes
+- Unique Index
+- Clustered Index
+- Non-Clustered Index
 
 ---
 
