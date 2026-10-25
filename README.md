@@ -31,7 +31,7 @@ Each module includes:
 - Automated execution using `run_module.py`
 - Execution output logs
 
-# 📑 Table of Contents
+## 📑 Table of Contents
 
 - [Project Overview](#-sql-for-ai-engineers-)
 - [Project Goal](#-project-goal)
@@ -44,6 +44,7 @@ Each module includes:
 - [Learning Modules](#-learning-modules)
 - [Connection With AI Engineering](#-connection-with-ai-engineering)
 - [Future Integration Goals](#-future-integration-goals)
+- [Long-Term Roadmap](#-long-term-roadmap)
 - [Learning Progress](#-learning-progress)
 - [Repository Achievements](#-repository-achievements)
 - [Features](#-features)
@@ -52,6 +53,7 @@ Each module includes:
 - [Ideal For](#-ideal-for)
 - [Support](#-support)
 - [License](#-license)
+- [Topics](#-topics)
 - [Author](#-author)
 
 ---
@@ -443,6 +445,24 @@ This repository will later connect with:
 
 ---
 
+# 🌟 Long-Term Roadmap
+
+This repository is the SQL foundation for a complete AI Engineering learning series.
+
+Future repositories include:
+
+- Python for AI Engineers
+- FastAPI for AI
+- SQLAlchemy ORM
+- PostgreSQL
+- LangChain
+- LangGraph
+- RAG Systems
+- Agentic AI
+- Production AI Applications
+
+---
+
 # 📈 Learning Progress
 
 | Module | Status |
@@ -543,11 +563,17 @@ You are free to use it for learning, teaching, and personal projects.
 
 ---
 
+# 🏷️ Topics
+
+SQL • SQLite • Python • Database • AI • RAG • LangChain • FastAPI • Data Engineering • Machine Learning • Generative AI
+
+---
+
 # 👨‍💻 Author
 
 **Mohamed Kalid**
 
-AI Engineer | Python | SQL | GenAI | RAG | Agentic AI
+AI Engineer specializing in Python, SQL, Generative AI, Retrieval-Augmented Generation (RAG), and Agentic AI Systems.
 
 - GitHub: https://github.com/MohamedKalid-94
 - LinkedIn: https://www.linkedin.com/in/mohamed-kalid-4618921a7
