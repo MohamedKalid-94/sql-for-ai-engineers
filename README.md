@@ -2,7 +2,15 @@
 
 A hands-on SQL learning and implementation repository designed for AI Engineers to build strong database foundations required for Data Engineering, Machine Learning, Generative AI, RAG Systems, and AI Applications.
 
-This repository contains practical SQL concepts implemented using **SQLite + Python**, organized as learning modules with automation scripts, documentation, and execution outputs.
+This repository contains hands-on SQL concepts implemented using **SQLite** and **Python (`sqlite3`)**, organized into modular lessons with SQL scripts, Python implementations, documentation, automated execution, and output logs.
+
+Each module includes:
+
+- SQL implementation
+- Equivalent Python (`sqlite3`) implementation
+- Documentation
+- Automated execution using `run_module.py`
+- Execution output logs
 
 ---
 
@@ -137,9 +145,7 @@ outputs/
 
 # 📚 Learning Modules
 
-## Module 01: SQL Database Management ✅
-
-Topics covered:
+## ✅ Module 01: SQL Database Management
 
 - Create Database
 - Show Database
@@ -148,56 +154,46 @@ Topics covered:
 - Backup Database
 - Drop Database
 
-Implementation:
-
-```
-Python + SQLite
-```
-
 ---
 
-## Module 02: SQL Tables 🚧
-
-Topics:
+## ✅ Module 02: SQL Tables
 
 - Create Table
-- Alter Table
+- Show Tables
 - Rename Table
-- Drop Table
-- Truncate Table
-- Temporary Tables
+- Truncate Table (SQLite Equivalent)
 - Clone Tables
+- Temporary Tables
+- Alter Tables
 - Constraints
+- Delete Table Data
+- Drop Tables
 
 ---
 
-## Module 03: SQL Queries
+## ✅ Module 03: SQL Queries
 
-Topics:
-
+- Insert Sample Data
 - INSERT
 - SELECT
+- SELECT INTO (SQLite Equivalent)
+- INSERT INTO SELECT
 - UPDATE
 - DELETE
-- Sorting Results
-- Filtering Data
+- ORDER BY
 
 ---
 
-## Module 04: SQL Views
-
-Topics:
+## ✅ Module 04: SQL Views
 
 - Create Views
-- Update Views
+- Update Views (SQLite Equivalent)
 - Drop Views
-- Rename Views
+- Rename Views (SQLite Equivalent)
 
 ---
 
-## Module 05: SQL Operators & Clauses
-
-Topics:
+## ⏳ Module 05: SQL Operators & Clauses
 
 - WHERE
 - GROUP BY
@@ -212,22 +208,20 @@ Topics:
 
 ---
 
-## Module 06: SQL Joins
-
-Topics:
+## ⏳ Module 06: SQL Joins
 
 - INNER JOIN
 - LEFT JOIN
-- RIGHT JOIN
-- FULL JOIN
+- RIGHT JOIN*
+- FULL JOIN*
 - CROSS JOIN
 - SELF JOIN
 
+> *RIGHT JOIN and FULL JOIN are demonstrated using SQLite-compatible alternatives.
+
 ---
 
-## Module 07: SQL Keys
-
-Topics:
+## ⏳ Module 07: SQL Keys
 
 - Primary Key
 - Foreign Key
@@ -237,40 +231,31 @@ Topics:
 
 ---
 
-## Module 08: SQL Indexes
+## ⏳ Module 08: SQL Indexes
 
-Topics:
-
-- Index Creation
+- Create Index
 - Unique Index
-- Clustered Index
-- Non Clustered Index
+- Composite Index
+- Drop Index
 
 ---
 
-## Module 09: Advanced SQL
-
-Topics:
+## ⏳ Module 09: Advanced SQL
 
 - Transactions
-- Stored Procedures
-- Sub Queries
-- CTE
-- Sequences
-- Auto Increment
+- Subqueries
+- Common Table Expressions (CTE)
+- Views
 - Database Optimization
 
 ---
 
-## Module 10: SQL Functions
+## ⏳ Module 10: SQL Functions
 
-Topics:
-
-- String Functions
-- Date Functions
 - Aggregate Functions
+- String Functions
 - Numeric Functions
-- JSON Functions
+- Date Functions
 - Conversion Functions
 
 ---
@@ -328,19 +313,29 @@ This repository will later connect with:
 # 📈 Learning Progress
 
 | Module | Status |
-|-|-|
-| SQL Database | ✅ Completed |
-| SQL Tables | 🚧 In Progress |
-| SQL Queries | ⏳ Pending |
-| SQL Views | ⏳ Pending |
-| SQL Operators | ⏳ Pending |
-| SQL Joins | ⏳ Pending |
-| SQL Keys | ⏳ Pending |
-| SQL Indexes | ⏳ Pending |
-| Advanced SQL | ⏳ Pending |
-| SQL Functions | ⏳ Pending |
+|---------|--------|
+| Module 01 - SQL Database | ✅ Completed |
+| Module 02 - SQL Tables | ✅ Completed |
+| Module 03 - SQL Queries | ✅ Completed |
+| Module 04 - SQL Views | ✅ Completed |
+| Module 05 - SQL Operators | ⏳ Planned |
+| Module 06 - SQL Joins | ⏳ Planned |
+| Module 07 - SQL Keys | ⏳ Planned |
+| Module 08 - SQL Indexes | ⏳ Planned |
+| Module 09 - Advanced SQL | ⏳ Planned |
+| Module 10 - SQL Functions | ⏳ Planned |
 
 ---
+
+# ✨ Features
+
+- Modular SQL learning path
+- SQLite-based examples
+- Python (`sqlite3`) implementation for every SQL script
+- Automated module execution (`run_module.py`)
+- Module-wise documentation
+- Output logs for every execution
+- Beginner-friendly and AI Engineer focused
 
 # 👨‍💻 Author
 
