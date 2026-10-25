@@ -262,13 +262,28 @@ outputs/
 
 ---
 
-## ⏳ Module 09: Advanced SQL
+## ✅ Module 09: Advanced SQL 
 
+- Wildcards
+- SQL Injection
+- SQL Hosting
+- MIN & MAX
+- NULL Functions
+- CHECK Constraint
+- DEFAULT Constraint
+- Stored Procedures (SQLite Equivalent)
+- NULL Values
 - Transactions
-- Subqueries
-- Common Table Expressions (CTE)
-- Views
-- Database Optimization
+- Sub Queries
+- Handling Duplicates
+- Sequences (SQLite Equivalent)
+- AUTO INCREMENT
+- Date & Time Functions
+- Cursors (SQLite Equivalent)
+- Common Table Expression (CTE)
+- GROUP BY vs ORDER BY
+- IN vs EXISTS
+- Database Tuning
 
 ---
 
@@ -343,8 +358,8 @@ This repository will later connect with:
 | Module 05 - SQL Operators | ✅ Completed |
 | Module 06 - SQL Joins | ✅ Completed |
 | Module 07 - SQL Keys | ✅ Completed |
-| Module 08 - SQL Indexes | ⏳ Planned |
-| Module 09 - Advanced SQL | ⏳ Planned |
+| Module 08 - SQL Indexes | ✅ Completed |
+| Module 09 - Advanced SQL | ✅ Completed |
 | Module 10 - SQL Functions | ⏳ Planned |
 
 ---
