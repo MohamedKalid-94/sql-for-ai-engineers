@@ -1,27 +1,25 @@
 ======================================================================
-Module_02_Database
-Generated: 2026-10-25 00:20:12.590629
+Module_02_Table
+Generated: 2026-10-25 14:47:06.158968
 ======================================================================
 ======================================================================
 01_create_tables.py
 ======================================================================
 Departments table created successfully
 Employees table created successfully
-Projects table already renamed to company_projects
+Projects table created successfully
 ======================================================================
 02_show_tables.py
 ======================================================================
 Tables Available
 ------------------------------
-company_projects
 departments
-employee_constraints
 employees
-employees_backup
+projects
 ======================================================================
 03_rename_table.py
 ======================================================================
-Table already renamed.
+Table Renamed Successfully
 ======================================================================
 04_truncate_table.py
 ======================================================================
@@ -41,9 +39,9 @@ Temporary Table Data
 ======================================================================
 07_alter_table.py
 ======================================================================
-Column 'phone' already exists
-Column 'joining_date' already exists
-Column 'is_active' already exists
+Column 'phone' added
+Column 'joining_date' added
+Column 'is_active' added
 
 ALTER TABLE completed successfully
 ======================================================================
@@ -55,13 +53,3 @@ Sample records inserted
 
 (1, 'EMP001', 'John', 70000.0, 'General')
 (2, 'EMP002', 'Sara', 85000.0, 'General')
-======================================================================
-98_delete_table_data.py
-======================================================================
-company_projects -> Data Deleted Successfully
-employees_backup -> Data Deleted Successfully
-employee_constraints -> Data Deleted Successfully
-employees -> Data Deleted Successfully
-departments -> Data Deleted Successfully
-
-All table data deleted successfully.

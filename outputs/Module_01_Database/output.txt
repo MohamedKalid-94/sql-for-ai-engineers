@@ -1,6 +1,6 @@
 ======================================================================
 Module_01_Database
-Generated: 2026-10-24 19:52:38.547003
+Generated: 2026-10-25 14:46:55.503231
 ======================================================================
 ======================================================================
 01_create_database.py
@@ -9,16 +9,21 @@ Database Created
 ======================================================================
 02_show_databases.py
 ======================================================================
-(0, 'main', 'F:\\sql_for_AI_engineers\\database\\company.db')
+(0, 'main', 'F:\\sql_for_ai_engineers\\database\\company.db')
 ======================================================================
 03_select_database.py
 ======================================================================
 Using Database:
-[(0, 'main', 'F:\\sql_for_AI_engineers\\database\\company.db')]
+[(0, 'main', 'F:\\sql_for_ai_engineers\\database\\company.db')]
 ======================================================================
 04_rename_database.py
 ======================================================================
-Database Renamed Successfully
+
+ERROR
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_01_Database\04_rename_database.py", line 6, in <module>
+    os.rename(DATABASE_PATH, RENAMED_DATABASE_PATH)
+FileExistsError: [WinError 183] Cannot create a file when that file already exists: 'F:\\sql_for_ai_engineers\\database\\company.db' -> 'F:\\sql_for_ai_engineers\\database\\company_archive.db'
 ======================================================================
 05_backup_database.py
 ======================================================================
