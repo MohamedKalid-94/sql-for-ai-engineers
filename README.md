@@ -240,11 +240,11 @@ outputs/
 
 ---
 
-## ⏳ Module 07: SQL Keys
+## ✅ Module 07: SQL Keys 
 
-- Primary Key
-- Foreign Key
-- Unique Key
+- UNIQUE Key
+- PRIMARY Key
+- FOREIGN Key
 - Composite Key
 - Alternate Key
 
@@ -339,7 +339,7 @@ This repository will later connect with:
 | Module 04 - SQL Views | ✅ Completed |
 | Module 05 - SQL Operators | ✅ Completed |
 | Module 06 - SQL Joins | ✅ Completed |
-| Module 07 - SQL Keys | ⏳ Planned |
+| Module 07 - SQL Keys | ✅ Completed |
 | Module 08 - SQL Indexes | ⏳ Planned |
 | Module 09 - Advanced SQL | ⏳ Planned |
 | Module 10 - SQL Functions | ⏳ Planned |
