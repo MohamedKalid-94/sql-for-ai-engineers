@@ -1,31 +1,35 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+create_temp, read_temp, list_temp_tables = read_statements(__file__)
+
+# Connection 1: the temporary table lives here
+connection = sqlite3.connect(DATABASE_PATH)
+cursor = connection.cursor()
+cursor.execute(create_temp)
+
+print("Inside the first connection")
+print("---------------------------")
+cursor.execute(read_temp)
+for row in cursor.fetchall():
+    print(row)
+
+cursor.execute(list_temp_tables)
+print("Temporary tables:", [name for (name,) in cursor.fetchall()])
+connection.close()
+
+# Connection 2: a new connection to the same file cannot see it
 connection = sqlite3.connect(DATABASE_PATH)
 cursor = connection.cursor()
 
-cursor.execute("""
-CREATE TEMP TABLE temp_employee_salary AS
+print("\nInside a second connection")
+print("--------------------------")
+cursor.execute(list_temp_tables)
+print("Temporary tables:", [name for (name,) in cursor.fetchall()])
 
-SELECT
-    emp_id,
-    name,
-    salary
-FROM employees
-""")
-
-print("Temporary Table Created Successfully")
-
-print("\nTemporary Table Data\n")
-
-cursor.execute("""
-SELECT *
-FROM temp_employee_salary
-""")
-
-rows = cursor.fetchall()
-
-for row in rows:
-    print(row)
+try:
+    cursor.execute(read_temp)
+except sqlite3.OperationalError as error:
+    print("Rejected:", error)
 
 connection.close()

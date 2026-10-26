@@ -1,30 +1,33 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
+
+create_table, insert_rows, list_tables, rename_table, read_rows = read_statements(__file__)
 
 connection = sqlite3.connect(DATABASE_PATH)
 cursor = connection.cursor()
 
-# Get all tables
-cursor.execute("""
-SELECT name
-FROM sqlite_master
-WHERE type='table'
-""")
+cursor.execute(create_table)
+cursor.execute(insert_rows)
+connection.commit()
 
-tables = [row[0] for row in cursor.fetchall()]
 
-if "company_projects" in tables:
-    print("Table already renamed.")
+def show_tables(title):
+    print(title)
+    cursor.execute(list_tables)
+    for (name,) in cursor.fetchall():
+        print("  ", name)
 
-elif "projects" in tables:
-    cursor.execute("""
-    ALTER TABLE projects
-    RENAME TO company_projects
-    """)
-    connection.commit()
-    print("Table Renamed Successfully")
 
-else:
-    print("projects table not found.")
+show_tables("Tables before the rename")
+
+cursor.execute(rename_table)
+connection.commit()
+
+show_tables("\nTables after the rename")
+
+print("\nRows are still there")
+cursor.execute(read_rows)
+for row in cursor.fetchall():
+    print(row)
 
 connection.close()

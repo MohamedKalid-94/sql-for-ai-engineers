@@ -4,71 +4,163 @@ Module_02_Table
 ======================================================================
 01_create_tables.py
 ======================================================================
-Departments table created successfully
-Employees table created successfully
-Projects table already renamed to company_projects
+Tables created and filled
+
+departments
+-----------
+(1, 'AI')
+(2, 'Python')
+(3, 'Data Science')
+(4, 'Cloud')
+(5, 'GenAI')
+
+employees
+---------
+(101, 'John', 'john@gmail.com', 75000.0, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2)
+(103, 'David', 'david@gmail.com', 65000.0, 3)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5)
 ======================================================================
 02_show_tables.py
 ======================================================================
-Tables Available
-------------------------------
-auto_increment_demo
-company_projects
+Tables in this database (SHOW TABLES)
+-------------------------------------
 departments
-departments_fk
-documents
-duplicate_employees
-employee_clustered
-employee_constraints
-employee_copy
-employee_projects
-employee_test
 employees
-employees_backup
-employees_clustered
-employees_fk
-employees_primary
-employees_unique
-products
-projects
-sequence_demo
-users
+
+Columns of employees (DESCRIBE)
+-------------------------------
+0 | emp_id   | INTEGER  | not null: 0 | primary key: 1
+1 | name     | TEXT     | not null: 1 | primary key: 0
+2 | email    | TEXT     | not null: 0 | primary key: 0
+3 | salary   | REAL     | not null: 0 | primary key: 0
+4 | dept_id  | INTEGER  | not null: 0 | primary key: 0
 ======================================================================
 03_rename_table.py
 ======================================================================
-Table already renamed.
+Tables before the rename
+   departments
+   employees
+   projects
+
+Tables after the rename
+   company_projects
+   departments
+   employees
+
+Rows are still there
+(1, 'RAG chatbot')
+(2, 'SQL portfolio')
 ======================================================================
 04_truncate_table.py
 ======================================================================
-Table Truncated Successfully (SQLite uses DELETE)
+Rows after inserting three
+   (3,)
+
+Rows after the TRUNCATE equivalent
+   (0,)
+
+New row (the id keeps counting from the old memory)
+   (4, 'new row')
+
+New row after resetting the counter (the id starts at 1 again)
+   (1, 'new row')
 ======================================================================
 05_clone_table.py
 ======================================================================
-employees table cloned successfully
-New Table : employees_backup
+Rows in each table
+------------------
+employees             : 5
+employees_copy        : 5
+employees_empty_copy  : 0
+
+Primary key columns
+-------------------
+employees     : ['emp_id']
+employees_copy: [] <- the clone lost its rules
 ======================================================================
 06_temporary_table.py
 ======================================================================
+Inside the first connection
+---------------------------
+('Priya', 90000.0)
+('Sara', 85000.0)
+('John', 75000.0)
+('Alex', 72000.0)
+Temporary tables: ['temp_high_earners']
 
-ERROR (exit code 1)
-Traceback (most recent call last):
-  File "F:\sql_for_ai_engineers\python\Module_02_Table\06_temporary_table.py", line 7, in <module>
-    cursor.execute("""
-sqlite3.OperationalError: no such column: name
+Inside a second connection
+--------------------------
+Temporary tables: []
+Rejected: no such table: temp_high_earners
 ======================================================================
 07_alter_table.py
 ======================================================================
-Column 'phone' added
-Column 'joining_date' already exists
-Column 'is_active' added
+Columns at the start  : ['emp_id', 'name', 'email', 'salary', 'dept_id']
+After ADD COLUMN      : ['emp_id', 'name', 'email', 'salary', 'dept_id', 'phone', 'is_active']
 
-ALTER TABLE completed successfully
+Existing rows get NULL for phone and the DEFAULT for is_active
+   (101, 'John', None, 1)
+   (102, 'Sara', None, 1)
+   (103, 'David', None, 1)
+   (104, 'Priya', None, 1)
+   (105, 'Alex', None, 1)
+
+After RENAME COLUMN   : ['emp_id', 'name', 'email', 'salary', 'dept_id', 'mobile', 'is_active']
+After DROP COLUMN     : ['emp_id', 'name', 'email', 'salary', 'dept_id', 'is_active']
+
+Changing a column type
+Rejected: near "ALTER": syntax error
 ======================================================================
 08_constraints.py
 ======================================================================
-employee_constraints table created
+The valid row (status was filled in by DEFAULT)
+-----------------------------------------------
+(1, 'EMP001', 'John', 70000.0, 'Active', 1)
 
-Sample records inserted
+Rows that break a rule
+----------------------
+PRIMARY KEY : rejected -> UNIQUE constraint failed: employee_constraints.emp_id
+UNIQUE      : rejected -> UNIQUE constraint failed: employee_constraints.code
+NOT NULL    : rejected -> NOT NULL constraint failed: employee_constraints.name
+CHECK       : rejected -> CHECK constraint failed: salary >= 0
+FOREIGN KEY : rejected -> FOREIGN KEY constraint failed
 
-(1, 'EMP001', 'John', 70000.0, 'General')
-(2, 'EMP002', 'Sara', 85000.0, 'General')
+Rows in the table after all attempts
+------------------------------------
+(1, 'EMP001', 'John', 70000.0, 'Active', 1)
+======================================================================
+09_delete_table_data.py
+======================================================================
+Rows at the start        : 5
+DELETE with WHERE        : 1 row(s) removed
+Rows after commit        : 4
+
+DELETE without WHERE     : 4 row(s) removed (not saved yet)
+Rows before rollback     : 0
+Rows after rollback      : 4 <- the rows came back
+
+Rows after delete+commit : 0
+======================================================================
+10_drop_tables.py
+======================================================================
+Tables before DROP
+   company_projects
+   departments
+   employee_constraints
+   employees
+   employees_copy
+   employees_empty_copy
+   log_entries
+
+Tables after DROP TABLE employees_copy
+   company_projects
+   departments
+   employee_constraints
+   employees
+   employees_empty_copy
+   log_entries
+
+DROP TABLE IF EXISTS on a missing table: no error
+DROP TABLE on a missing table: rejected -> no such table: employees_copy
