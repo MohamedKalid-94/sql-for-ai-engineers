@@ -1,0 +1,167 @@
+======================================================================
+Module_03_Queries
+======================================================================
+======================================================================
+00_insert_sample_data.py
+======================================================================
+Employees before: 5
+Rows inserted   : 2
+
+Employees now
+-------------
+(101, 'John', 75000.0, 1)
+(102, 'Sara', 85000.0, 2)
+(103, 'David', 65000.0, 3)
+(104, 'Priya', 90000.0, 1)
+(105, 'Alex', 72000.0, 5)
+(106, 'Maria', 68000.0, 2)
+(107, 'Kumar', 95000.0, 4)
+======================================================================
+01_insert_query.py
+======================================================================
+Way 1, one row    : 1 row inserted
+Way 2, many rows  : 2 rows inserted
+Way 3, with ?     : 2 rows inserted
+
+The five new employees (phone is NULL, is_active got its DEFAULT)
+-----------------------------------------------------------------
+(108, 'Neha', 70000.0, 3, None, 1)
+(109, 'Omar', 82000.0, 1, None, 1)
+(110, 'Lena', 61000.0, 5, None, 1)
+(111, 'Ravi', 77000.0, 2, None, 1)
+(112, 'Tina', 58000.0, 4, None, 1)
+======================================================================
+02_select_query.py
+======================================================================
+All columns (SELECT *), first 3 rows
+------------------------------------
+(101, 'John', 'john@gmail.com', 75000.0, 1, None, '9876543210', '2025-01-15', 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, 101, None, '2025-02-10', 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, 101, None, '2024-11-20', 1)
+
+Chosen columns, only department 1
+---------------------------------
+('John', 75000.0)
+('Omar', 82000.0)
+('Priya', 90000.0)
+
+A calculated column (salary x 12)
+---------------------------------
+('John', 75000.0, 900000.0)
+
+Counting and summarising
+------------------------
+(12, 95000.0, 58000.0)
+======================================================================
+03_select_into.py
+======================================================================
+Table high_earners created from a SELECT
+
+Rows copied into the new table
+------------------------------
+(102, 'Sara', 85000.0)
+(104, 'Priya', 90000.0)
+(107, 'Kumar', 95000.0)
+(109, 'Omar', 82000.0)
+
+Columns of high_earners: ['emp_id', 'name', 'salary']
+======================================================================
+04_insert_into_select.py
+======================================================================
+Rows copied with named columns: 3
+
+Rows now in employees_backup
+----------------------------
+(101, 'John', 75000.0, 1)
+(104, 'Priya', 90000.0, 1)
+(109, 'Omar', 82000.0, 1)
+
+The mistake: SELECT * into a table with fewer columns
+Rejected: table employees_backup has 5 columns but 9 values were supplied
+======================================================================
+05_update_query.py
+======================================================================
+Before the updates
+------------------
+(101, 'John', 75000.0)
+(103, 'David', 65000.0)
+(108, 'Neha', 70000.0)
+
+One row, one value    : 1 row changed
+A 10% raise (dept 3)  : 2 rows changed
+Two columns at once   : 1 row changed
+
+After the updates
+-----------------
+(101, 'John', 80000.0, '9876543210', '2025-01-15')
+(103, 'David', 71500.0, None, '2024-11-20')
+(108, 'Neha', 77000.0, '9111111111', '2025-05-01')
+
+DANGER: UPDATE without WHERE
+----------------------------
+Rows changed            : 12
+Inactive before rollback: 12
+Inactive after rollback : 0 <- the change was undone
+======================================================================
+06_delete_query.py
+======================================================================
+Rows at the start       : 12
+DELETE by id            : 1 row removed
+
+Preview of the next delete (SELECT with the same WHERE)
+-------------------------------------------------------
+(110, 'Lena', 61000.0)
+
+DELETE with a condition : 1 row(s) removed
+Rows after commit       : 10
+
+DELETE without WHERE    : 10 row(s) removed (not saved yet)
+Rows before rollback    : 0
+Rows after rollback     : 10 <- the rows came back
+======================================================================
+07_sorting_results.py
+======================================================================
+Highest salary first (ties broken by name)
+------------------------------------------
+('Kumar', 95000.0)
+('Priya', 90000.0)
+('Sara', 85000.0)
+('Omar', 82000.0)
+('John', 80000.0)
+('Neha', 77000.0)
+('Ravi', 77000.0)
+('Alex', 72000.0)
+('David', 71500.0)
+('Maria', 68000.0)
+
+By department, then highest salary
+----------------------------------
+('Priya', 1, 90000.0)
+('Omar', 1, 82000.0)
+('John', 1, 80000.0)
+('Sara', 2, 85000.0)
+('Ravi', 2, 77000.0)
+('Maria', 2, 68000.0)
+('Neha', 3, 77000.0)
+('David', 3, 71500.0)
+('Kumar', 4, 95000.0)
+('Alex', 5, 72000.0)
+
+By joining date (NULL dates come first)
+---------------------------------------
+('Omar', None)
+('Ravi', None)
+('David', '2024-11-20')
+('Priya', '2024-12-05')
+('John', '2025-01-15')
+('Sara', '2025-02-10')
+('Alex', '2025-03-01')
+('Maria', '2025-04-01')
+('Kumar', '2025-04-15')
+('Neha', '2025-05-01')
+
+Top 3 salaries (ORDER BY + LIMIT)
+---------------------------------
+('Kumar', 95000.0)
+('Priya', 90000.0)
+('Sara', 85000.0)
