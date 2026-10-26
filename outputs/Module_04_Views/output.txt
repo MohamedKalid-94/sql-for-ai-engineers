@@ -1,0 +1,101 @@
+======================================================================
+Module_04_Views
+======================================================================
+======================================================================
+01_create_views.py
+======================================================================
+Views in this database
+----------------------
+('employee_details',)
+('high_salary_employees',)
+
+high_salary_employees (salary >= 80000)
+---------------------------------------
+(102, 'Sara', 85000.0)
+(104, 'Priya', 90000.0)
+
+employee_details (employees joined with department names)
+---------------------------------------------------------
+(101, 'John', 'AI')
+(102, 'Sara', 'Python')
+(103, 'David', 'Data Science')
+(104, 'Priya', 'AI')
+(105, 'Alex', 'GenAI')
+
+A view is live: change the TABLE and the VIEW changes
+
+high_salary_employees after David's raise (not saved yet)
+---------------------------------------------------------
+(102, 'Sara', 85000.0)
+(103, 'David', 95000.0)
+(104, 'Priya', 90000.0)
+
+high_salary_employees after rollback
+------------------------------------
+(102, 'Sara', 85000.0)
+(104, 'Priya', 90000.0)
+======================================================================
+02_update_views.py
+======================================================================
+high_salary_employees now (salary >= 80000)
+-------------------------------------------
+(102, 'Sara', 85000.0)
+(104, 'Priya', 90000.0)
+
+Meaning 1: change the DATA through the view
+Rejected: cannot modify high_salary_employees because it is a view
+
+Meaning 2: change the DEFINITION (DROP VIEW, then CREATE VIEW)
+high_salary_employees after the new definition (salary >= 75000, email added)
+-----------------------------------------------------------------------------
+(101, 'John', 'john@gmail.com', 75000.0)
+(102, 'Sara', 'sara@gmail.com', 85000.0)
+(104, 'Priya', 'priya@gmail.com', 90000.0)
+
+CREATE OR REPLACE VIEW (works in MySQL, not in SQLite)
+Rejected: near "OR": syntax error
+
+What SQLite stored: the question, not the answers
+CREATE VIEW high_salary_employees AS
+SELECT emp_id, name, email, salary, dept_id
+FROM employees
+WHERE salary >= 75000
+======================================================================
+03_rename_views.py
+======================================================================
+Views before the rename
+-----------------------
+('employee_details',)
+('high_salary_employees',)
+
+Views after the rename (employee_details -> employee_directory)
+---------------------------------------------------------------
+('employee_directory',)
+('high_salary_employees',)
+
+The data, read through the new name
+-----------------------------------
+(101, 'John', 'AI')
+(102, 'Sara', 'Python')
+(103, 'David', 'Data Science')
+(104, 'Priya', 'AI')
+(105, 'Alex', 'GenAI')
+
+ALTER VIEW ... RENAME (works in other databases, not in SQLite)
+Rejected: near "VIEW": syntax error
+======================================================================
+04_drop_views.py
+======================================================================
+Views before DROP
+-----------------
+('employee_directory',)
+('high_salary_employees',)
+
+Views after DROP VIEW employee_directory
+----------------------------------------
+('high_salary_employees',)
+
+DROP VIEW IF EXISTS on a missing view: no error
+DROP VIEW on a missing view: rejected -> no such view: employee_directory
+
+Employees still in the table: 5 <- dropping a view never touches the data
