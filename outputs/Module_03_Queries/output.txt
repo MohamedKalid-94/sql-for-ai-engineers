@@ -1,35 +1,35 @@
 ======================================================================
 Module_03_Queries
-Generated: 2026-10-25 14:47:19.023389
 ======================================================================
 ======================================================================
 00_insert_sample_data.py
 ======================================================================
 Departments inserted
-Employees inserted
-Projects inserted
 
-Sample Data Inserted Successfully
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_03_Queries\00_insert_sample_data.py", line 43, in <module>
+    cursor.executemany("""
+sqlite3.OperationalError: table employees has no column named name
 ======================================================================
 01_insert_query.py
 ======================================================================
-One employee inserted successfully
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_03_Queries\01_insert_query.py", line 7, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: table employees has no column named name
 ======================================================================
 02_select_query.py
 ======================================================================
 Employees
 ------------------------------------------------------------
-(101, 'John', 'john@gmail.com', 70000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
-(111, 'Robert', 'robert@gmail.com', 76000.0, 4, None, None, 1)
+(101, 'John', 'john@gmail.com', 75000.0, 1, '2025-01-15', None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, '2025-02-10', None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, '2024-11-20', None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, '2024-12-05', None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, '2025-03-01', None, 1)
 ======================================================================
 03_select_into.py
 ======================================================================
@@ -38,11 +38,11 @@ employee_copy table created
 04_insert_into_select.py
 ======================================================================
 
-ERROR
+ERROR (exit code 1)
 Traceback (most recent call last):
   File "F:\sql_for_ai_engineers\python\Module_03_Queries\04_insert_into_select.py", line 7, in <module>
     cursor.execute("""
-sqlite3.OperationalError: table employees_backup has 5 columns but 8 values were supplied
+sqlite3.OperationalError: table employees_backup has 6 columns but 8 values were supplied
 ======================================================================
 05_update_query.py
 ======================================================================
@@ -56,13 +56,8 @@ Employee deleted
 ======================================================================
 Employees by Salary
 ------------------------------------------------------------
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, '2024-12-05', None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, '2025-02-10', None, 1)
+(101, 'John', 'john@gmail.com', 75000.0, 1, '2025-01-15', None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, '2025-03-01', None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, '2024-11-20', None, 1)

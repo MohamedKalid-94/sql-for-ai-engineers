@@ -1,25 +1,42 @@
 ======================================================================
 Module_02_Table
-Generated: 2026-10-25 14:47:06.158968
 ======================================================================
 ======================================================================
 01_create_tables.py
 ======================================================================
 Departments table created successfully
 Employees table created successfully
-Projects table created successfully
+Projects table already renamed to company_projects
 ======================================================================
 02_show_tables.py
 ======================================================================
 Tables Available
 ------------------------------
+auto_increment_demo
+company_projects
 departments
+departments_fk
+documents
+duplicate_employees
+employee_clustered
+employee_constraints
+employee_copy
+employee_projects
+employee_test
 employees
+employees_backup
+employees_clustered
+employees_fk
+employees_primary
+employees_unique
+products
 projects
+sequence_demo
+users
 ======================================================================
 03_rename_table.py
 ======================================================================
-Table Renamed Successfully
+Table already renamed.
 ======================================================================
 04_truncate_table.py
 ======================================================================
@@ -32,15 +49,17 @@ New Table : employees_backup
 ======================================================================
 06_temporary_table.py
 ======================================================================
-Temporary Table Created Successfully
 
-Temporary Table Data
-
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_02_Table\06_temporary_table.py", line 7, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: name
 ======================================================================
 07_alter_table.py
 ======================================================================
 Column 'phone' added
-Column 'joining_date' added
+Column 'joining_date' already exists
 Column 'is_active' added
 
 ALTER TABLE completed successfully

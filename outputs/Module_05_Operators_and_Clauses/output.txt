@@ -1,225 +1,170 @@
 ======================================================================
 Module_05_Operators_and_Clauses
-Generated: 2026-10-25 15:21:12.797550
 ======================================================================
 ======================================================================
 00_insert_sample_data.py
 ======================================================================
-Sample data inserted successfully
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\00_insert_sample_data.py", line 19, in <module>
+    cursor.executemany(
+sqlite3.OperationalError: table departments has no column named department_name
 ======================================================================
 01_where_clause.py
 ======================================================================
 Employees Salary > 80000
 ------------------------
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, '2025-02-10', None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, '2024-12-05', None, 1)
 ======================================================================
 02_top_clause.py
 ======================================================================
 Top 5 Employees
 ----------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
+(101, 'John', 'john@gmail.com', 75000.0, 1, '2025-01-15', None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, '2025-02-10', None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, '2024-11-20', None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, '2024-12-05', None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, '2025-03-01', None, 1)
 ======================================================================
 03_distinct_clause.py
 ======================================================================
-Unique Departments
-------------------
-(1,)
-(2,)
-(3,)
-(5,)
-(4,)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\03_distinct_clause.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: dept_id
 ======================================================================
 04_order_by_clause.py
 ======================================================================
 Employees Ordered By Salary
 ---------------------------
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, '2024-12-05', None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, '2025-02-10', None, 1)
+(101, 'John', 'john@gmail.com', 75000.0, 1, '2025-01-15', None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, '2025-03-01', None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, '2024-11-20', None, 1)
 ======================================================================
 05_group_by_clause.py
 ======================================================================
-Employee Count Department Wise
-------------------------------
-(1, 3)
-(2, 2)
-(3, 2)
-(4, 1)
-(5, 2)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\05_group_by_clause.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: dept_id
 ======================================================================
 06_having_clause.py
 ======================================================================
-Departments Having More Than 1 Employee
-----------------------------------------
-(1, 3)
-(2, 2)
-(3, 2)
-(5, 2)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\06_having_clause.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: dept_id
 ======================================================================
 07_and_or_operator.py
 ======================================================================
 AND Operator Result
 ------------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
 
-OR Operator Result
------------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\07_and_or_operator.py", line 14, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: dept_id
 ======================================================================
 08_boolean_bit_operator.py
 ======================================================================
 Active Employees
 ----------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+(101, 'John', 'john@gmail.com', 75000.0, 1, '2025-01-15', None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, '2025-02-10', None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, '2024-11-20', None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, '2024-12-05', None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, '2025-03-01', None, 1)
 ======================================================================
 09_like_operator.py
 ======================================================================
-Employees Name Starts With S
------------------------------
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\09_like_operator.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: name
 ======================================================================
 10_in_operator.py
 ======================================================================
-Employees From Departments 1,2,5
---------------------------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\10_in_operator.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: dept_id
 ======================================================================
 11_any_all_operator.py
 ======================================================================
 ANY Equivalent Result
 --------------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
 
-ALL Equivalent Result
---------------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\11_any_all_operator.py", line 14, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: dept_id
 ======================================================================
 12_exists_operator.py
 ======================================================================
-Employees With Valid Departments
---------------------------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\12_exists_operator.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: e.dept_id
 ======================================================================
 13_case_expression.py
 ======================================================================
-Salary Category
-----------------
-('John', 75000.0, 'Medium Salary')
-('Sara', 85000.0, 'Medium Salary')
-('David', 65000.0, 'Low Salary')
-('Priya', 90000.0, 'High Salary')
-('Alex', 72000.0, 'Medium Salary')
-('Maria', 78000.0, 'Medium Salary')
-('Ahmed', 68000.0, 'Low Salary')
-('Sophia', 95000.0, 'High Salary')
-('James', 61000.0, 'Low Salary')
-('Emma', 82000.0, 'Medium Salary')
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\13_case_expression.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: name
 ======================================================================
 14_not_operator.py
 ======================================================================
-Employees Not In Department 1
------------------------------
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\14_not_operator.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: dept_id
 ======================================================================
 15_not_equal_operator.py
 ======================================================================
-Employees Not In Department 1
------------------------------
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\15_not_equal_operator.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: dept_id
 ======================================================================
 16_is_null_operator.py
 ======================================================================
 Employees With NULL Joining Date
 --------------------------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, None, 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, None, 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, None, 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(107, 'Ahmed', 'ahmed@gmail.com', 68000.0, 1, None, None, 1)
-(108, 'Sophia', 'sophia@gmail.com', 95000.0, 2, None, None, 1)
-(109, 'James', 'james@gmail.com', 61000.0, 3, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
 ======================================================================
 17_is_not_null_operator.py
 ======================================================================
 Employees With Joining Date
 ---------------------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, '2026-01-01', 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, '2026-01-01', 1)
-(103, 'David', 'david@gmail.com', 65000.0, 3, None, '2026-01-01', 1)
+(101, 'John', 'john@gmail.com', 75000.0, 1, '2026-01-01', None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, '2026-01-01', None, 1)
+(103, 'David', 'david@gmail.com', 65000.0, 3, '2026-01-01', None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, '2024-12-05', None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, '2025-03-01', None, 1)
 ======================================================================
 18_not_null_constraint.py
 ======================================================================
@@ -230,86 +175,54 @@ Sample record inserted successfully
 ======================================================================
 Employees Salary Between 70000 and 90000
 ----------------------------------------
-(101, 'John', 'john@gmail.com', 75000.0, 1, None, '2026-01-01', 1)
-(102, 'Sara', 'sara@gmail.com', 85000.0, 2, None, '2026-01-01', 1)
-(104, 'Priya', 'priya@gmail.com', 90000.0, 1, None, None, 1)
-(105, 'Alex', 'alex@gmail.com', 72000.0, 5, None, None, 1)
-(106, 'Maria', 'maria@gmail.com', 78000.0, 4, None, None, 1)
-(110, 'Emma', 'emma@gmail.com', 82000.0, 5, None, None, 1)
+(101, 'John', 'john@gmail.com', 75000.0, 1, '2026-01-01', None, 1)
+(102, 'Sara', 'sara@gmail.com', 85000.0, 2, '2026-01-01', None, 1)
+(104, 'Priya', 'priya@gmail.com', 90000.0, 1, '2024-12-05', None, 1)
+(105, 'Alex', 'alex@gmail.com', 72000.0, 5, '2025-03-01', None, 1)
 ======================================================================
 20_union_operator.py
 ======================================================================
-UNION Result
--------------
-('Ahmed',)
-('John',)
-('Priya',)
-('Sara',)
-('Sophia',)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\20_union_operator.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: name
 ======================================================================
 21_union_vs_union_all.py
 ======================================================================
 UNION Result
 ------------
-(1,)
-(2,)
-(3,)
 
-UNION ALL Result
-----------------
-(1,)
-(2,)
-(1,)
-(1,)
-(2,)
-(2,)
-(3,)
-(2,)
-(3,)
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\21_union_vs_union_all.py", line 14, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: dept_id
 ======================================================================
 22_intersect_operator.py
 ======================================================================
-INTERSECT Result
-----------------
-('John',)
-('Priya',)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\22_intersect_operator.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: name
 ======================================================================
 23_except_operator.py
 ======================================================================
-EXCEPT Result
--------------
-('Alex',)
-('David',)
-('Emma',)
-('James',)
-('Maria',)
-('Sara',)
-('Sophia',)
+
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\23_except_operator.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: name
 ======================================================================
 24_aliases.py
 ======================================================================
-Column Alias Result
--------------------
-('John', 75000.0)
-('Sara', 85000.0)
-('David', 65000.0)
-('Priya', 90000.0)
-('Alex', 72000.0)
-('Maria', 78000.0)
-('Ahmed', 68000.0)
-('Sophia', 95000.0)
-('James', 61000.0)
-('Emma', 82000.0)
 
-Table Alias Result
-------------------
-('John', 75000.0)
-('Sara', 85000.0)
-('David', 65000.0)
-('Priya', 90000.0)
-('Alex', 72000.0)
-('Maria', 78000.0)
-('Ahmed', 68000.0)
-('Sophia', 95000.0)
-('James', 61000.0)
-('Emma', 82000.0)
+ERROR (exit code 1)
+Traceback (most recent call last):
+  File "F:\sql_for_ai_engineers\python\Module_05_Operators_and_Clauses\24_aliases.py", line 10, in <module>
+    cursor.execute("""
+sqlite3.OperationalError: no such column: name

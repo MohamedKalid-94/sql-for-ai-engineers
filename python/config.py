@@ -1,34 +1,45 @@
-from pathlib import Path
+import os
 import sqlite3
+from pathlib import Path
 
-# ==========================
-# Project Root
-# ==========================
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# ==========================
-# Database Paths
-# ==========================
-DATABASE_DIR = PROJECT_ROOT / "database"
-DATABASE_DIR.mkdir(exist_ok=True)
+# run_module.py sets DATABASE_PATH so each module gets its own fresh database.
+# Running a script by hand uses database/company.db instead.
+DATABASE_PATH = Path(
+    os.environ.get("DATABASE_PATH", PROJECT_ROOT / "database" / "company.db")
+)
 
-BACKUP_DIR = DATABASE_DIR / "backup"
-BACKUP_DIR.mkdir(exist_ok=True)
+RENAMED_DATABASE_PATH = DATABASE_PATH.with_name(DATABASE_PATH.stem + "_archive.db")
 
-DATABASE_PATH = DATABASE_DIR / "company.db"
-RENAMED_DATABASE_PATH = DATABASE_DIR / "company_archive.db"
-BACKUP_DATABASE_PATH = BACKUP_DIR / "company_backup.db"
+BACKUP_DIR = DATABASE_PATH.parent / "backup"
+BACKUP_DATABASE_PATH = BACKUP_DIR / f"{DATABASE_PATH.stem}_backup.db"
 
-# ==========================
-# Table Names
-# ==========================
-DEPARTMENTS_TABLE = "departments"
-EMPLOYEES_TABLE = "employees"
-PROJECTS_TABLE = "company_projects"
 
-# ==========================
-# Database Connection
-# ==========================
-def get_connection():
-    """Return SQLite database connection."""
-    return sqlite3.connect(DATABASE_PATH)
+def get_connection(path=None):
+    """Open a connection with foreign keys enforced (used by Module 5 and later)."""
+    target = Path(path) if path else DATABASE_PATH
+    target.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(target)
+    conn.execute("PRAGMA foreign_keys = ON")
+    return conn
+
+
+def read_statements(script_file):
+    """Return the SQL statements from the .sql file that matches this script.
+
+    python/Module_01_Database/01_create_database.py
+        -> sql/Module_01_Database/01_create_database.sql
+    The statements come back in the same order they appear in the file.
+    """
+    script = Path(script_file).resolve()
+    relative = script.relative_to(PROJECT_ROOT / "python")
+    sql_file = PROJECT_ROOT / "sql" / relative.with_suffix(".sql")
+
+    statements, buffer = [], ""
+    for line in sql_file.read_text(encoding="utf-8-sig").splitlines():
+        buffer += line + "\n"
+        if sqlite3.complete_statement(buffer):   # True once a statement ends with ;
+            statements.append(buffer.strip())
+            buffer = ""
+    return statements
