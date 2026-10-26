@@ -1,35 +1,26 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+create_table, insert_valid, insert_bad, read_rows = read_statements(__file__)
 
 connection = sqlite3.connect(DATABASE_PATH)
-
 cursor = connection.cursor()
 
-
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS employee_test
-(
-    id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT
-)
-""")
-
-
-cursor.execute("""
-INSERT OR IGNORE INTO employee_test
-(id,name,email)
-VALUES
-(1,'John','john@gmail.com')
-""")
-
-
+cursor.execute(create_table)
+cursor.execute(insert_valid)
 connection.commit()
+print("Table trainees created and a valid row inserted")
 
+print("\nInsert a row with no name (breaks NOT NULL)")
+try:
+    cursor.execute(insert_bad)
+except sqlite3.IntegrityError as error:
+    print("Rejected:", error)
 
-print("NOT NULL constraint table created")
-print("Sample record inserted successfully")
-
+print("\nRows in the table (only the valid one got in)")
+print("---------------------------------------------")
+cursor.execute(read_rows)
+for row in cursor.fetchall():
+    print(row)
 
 connection.close()

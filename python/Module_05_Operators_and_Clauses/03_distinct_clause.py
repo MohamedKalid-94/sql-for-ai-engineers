@@ -1,27 +1,27 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+titles = [
+    "Department of every employee (repeats allowed)",
+    "Distinct departments (each shown once)",
+    "How many different departments have staff",
+]
+statements = read_statements(__file__)
+assert len(titles) == len(statements), "each title needs exactly one statement"
 
 connection = sqlite3.connect(DATABASE_PATH)
-
 cursor = connection.cursor()
 
-
-cursor.execute("""
-SELECT DISTINCT dept_id
-FROM employees
-""")
-
-
-rows = cursor.fetchall()
-
-
-print("Unique Departments")
-print("------------------")
-
-
-for row in rows:
-    print(row)
-
+for number, (title, statement) in enumerate(zip(titles, statements)):
+    if number:
+        print()
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
 connection.close()

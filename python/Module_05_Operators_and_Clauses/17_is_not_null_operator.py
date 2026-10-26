@@ -1,36 +1,26 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+titles = [
+    "IS NOT NULL: employees that have a joining date",
+    "COUNT(*) versus COUNT(column)",
+]
+statements = read_statements(__file__)
+assert len(titles) == len(statements), "each title needs exactly one statement"
 
 connection = sqlite3.connect(DATABASE_PATH)
-
 cursor = connection.cursor()
 
+for number, (title, statement) in enumerate(zip(titles, statements)):
+    if number:
+        print()
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
-# Update joining date
-cursor.execute("""
-UPDATE employees
-SET joining_date = '2026-01-01'
-WHERE emp_id IN (101,102,103)
-""")
-
-
-print("Employees With Joining Date")
-print("---------------------------")
-
-
-cursor.execute("""
-SELECT *
-FROM employees
-WHERE joining_date IS NOT NULL
-""")
-
-
-rows = cursor.fetchall()
-
-for row in rows:
-    print(row)
-
-
-connection.commit()
 connection.close()

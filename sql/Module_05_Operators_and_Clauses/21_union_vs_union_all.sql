@@ -1,25 +1,13 @@
--- UNION removes duplicates
+-- Lesson 21 of 24 | UNION vs UNION ALL
+-- UNION removes repeated rows. UNION ALL keeps every row, so it is faster and shows repeats.
+-- Sara is in both tables, so she shows once with UNION and twice with UNION ALL.
 
-SELECT dept_id
-FROM employees
-WHERE dept_id IN (1,2)
-
+SELECT name FROM employees
 UNION
+SELECT name FROM contractors
+ORDER BY name;
 
-SELECT dept_id
-FROM employees
-WHERE dept_id IN (2,3);
-
-
-
--- UNION ALL keeps duplicates
-
-SELECT dept_id
-FROM employees
-WHERE dept_id IN (1,2)
-
+SELECT name FROM employees
 UNION ALL
-
-SELECT dept_id
-FROM employees
-WHERE dept_id IN (2,3);
+SELECT name FROM contractors
+ORDER BY name;

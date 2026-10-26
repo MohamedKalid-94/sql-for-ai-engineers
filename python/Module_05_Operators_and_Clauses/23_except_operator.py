@@ -1,33 +1,26 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+titles = [
+    "Employees who are not contractors",
+    "Contractors who are not employees (the order matters)",
+]
+statements = read_statements(__file__)
+assert len(titles) == len(statements), "each title needs exactly one statement"
 
 connection = sqlite3.connect(DATABASE_PATH)
-
 cursor = connection.cursor()
 
-
-cursor.execute("""
-SELECT name
-FROM employees
-
-EXCEPT
-
-SELECT name
-FROM employees
-WHERE dept_id = 1
-""")
-
-
-rows = cursor.fetchall()
-
-
-print("EXCEPT Result")
-print("-------------")
-
-
-for row in rows:
-    print(row)
-
+for number, (title, statement) in enumerate(zip(titles, statements)):
+    if number:
+        print()
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
 connection.close()

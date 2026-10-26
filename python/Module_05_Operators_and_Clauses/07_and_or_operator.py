@@ -1,44 +1,27 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+titles = [
+    "AND: department 1 and salary above 80000",
+    "OR: department 2, or salary above 80000",
+    "Brackets: (department 1 or 5) and salary above 72000",
+]
+statements = read_statements(__file__)
+assert len(titles) == len(statements), "each title needs exactly one statement"
 
 connection = sqlite3.connect(DATABASE_PATH)
-
 cursor = connection.cursor()
 
-
-print("AND Operator Result")
-print("------------------")
-
-
-cursor.execute("""
-SELECT *
-FROM employees
-WHERE salary > 70000
-AND dept_id = 1
-""")
-
-
-for row in cursor.fetchall():
-    print(row)
-
-
-
-print("\nOR Operator Result")
-print("-----------------")
-
-
-cursor.execute("""
-SELECT *
-FROM employees
-WHERE dept_id = 1
-OR dept_id = 2
-""")
-
-
-for row in cursor.fetchall():
-    print(row)
-
-
+for number, (title, statement) in enumerate(zip(titles, statements)):
+    if number:
+        print()
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
 connection.close()

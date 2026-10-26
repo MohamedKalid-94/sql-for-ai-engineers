@@ -1,48 +1,27 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+titles = [
+    "Column aliases (AS) and table aliases (e and d)",
+    "An alias can be used in ORDER BY",
+    "A table alias on its own",
+]
+statements = read_statements(__file__)
+assert len(titles) == len(statements), "each title needs exactly one statement"
 
 connection = sqlite3.connect(DATABASE_PATH)
-
 cursor = connection.cursor()
 
-
-cursor.execute("""
-SELECT
-name AS employee_name,
-salary AS monthly_salary
-
-FROM employees
-""")
-
-
-rows = cursor.fetchall()
-
-
-print("Column Alias Result")
-print("-------------------")
-
-
-for row in rows:
-    print(row)
-
-
-
-print("\nTable Alias Result")
-print("------------------")
-
-
-cursor.execute("""
-SELECT
-e.name,
-e.salary
-
-FROM employees AS e
-""")
-
-
-for row in cursor.fetchall():
-    print(row)
-
+for number, (title, statement) in enumerate(zip(titles, statements)):
+    if number:
+        print()
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
 connection.close()

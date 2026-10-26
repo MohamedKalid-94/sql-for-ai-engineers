@@ -1,14 +1,8 @@
--- UNION Operator
--- Combines results from two SELECT queries
--- Removes duplicate records
+-- Lesson 20 of 24 | UNION Operator
+-- UNION stacks the results of two SELECT commands into one list.
+-- Both SELECTs need the same number of columns. Repeated rows are removed.
 
-
-SELECT name
-FROM employees
-WHERE dept_id = 1
-
+SELECT name FROM employees
 UNION
-
-SELECT name
-FROM employees
-WHERE dept_id = 2;
+SELECT name FROM contractors
+ORDER BY name;

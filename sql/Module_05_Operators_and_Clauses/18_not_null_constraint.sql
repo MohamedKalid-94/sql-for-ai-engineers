@@ -1,22 +1,22 @@
--- NOT NULL Constraint Example
+-- Lesson 18 of 24 | NOT NULL Constraint
+-- NOT NULL is a rule on a column: the value can never be left empty.
+-- The database enforces the rule, so bad data never gets in.
 
-CREATE TABLE employee_test
-(
-    id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT
+CREATE TABLE trainees (
+    trainee_id INTEGER PRIMARY KEY,
+    name       TEXT NOT NULL,
+    email      TEXT NOT NULL,
+    city       TEXT
 );
 
+INSERT INTO trainees (name, email, city)
+VALUES ('Maya', 'maya@gmail.com', 'Pune');
 
-INSERT INTO employee_test
-(id,name,email)
-VALUES
-(1,'John','john@gmail.com');
+-- The next statement is REJECTED ON PURPOSE.
+-- It leaves the name empty, which the NOT NULL rule does not allow.
 
+INSERT INTO trainees (name, email, city)
+VALUES (NULL, 'ghost@gmail.com', 'Chennai');
 
--- This will fail because name cannot be NULL
-
-INSERT INTO employee_test
-(id,name,email)
-VALUES
-(2,NULL,'test@gmail.com');
+SELECT trainee_id, name, email, city
+FROM trainees;

@@ -1,13 +1,6 @@
--- INTERSECT
--- Returns common records from both queries
+-- Lesson 22 of 24 | INTERSECT Operator
+-- INTERSECT keeps only the rows that appear in BOTH results.
 
-
-SELECT name
-FROM employees
-WHERE salary > 70000
-
+SELECT name FROM employees
 INTERSECT
-
-SELECT name
-FROM employees
-WHERE dept_id = 1;
+SELECT name FROM contractors;

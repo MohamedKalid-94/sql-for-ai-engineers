@@ -1,13 +1,12 @@
--- Module 05: SQL Operators and Clauses
--- Topic: IS NOT NULL Operator
+-- Lesson 17 of 24 | IS NOT NULL
+-- IS NOT NULL keeps the rows that do have a value.
+-- COUNT(*) counts every row, but COUNT(column) skips the NULLs.
 
--- Update sample joining dates
-UPDATE employees
-SET joining_date = '2026-01-01'
-WHERE emp_id IN (101,102,103);
-
-
--- Select employees having joining date
-SELECT *
+SELECT emp_id, name, joining_date
 FROM employees
-WHERE joining_date IS NOT NULL;
+WHERE joining_date IS NOT NULL
+ORDER BY joining_date;
+
+SELECT COUNT(*)            AS all_employees,
+       COUNT(joining_date) AS with_joining_date
+FROM employees;
