@@ -1,46 +1,34 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+read_rows, update_from, update_subquery = read_statements(__file__)
 
 connection = sqlite3.connect(DATABASE_PATH)
-
 cursor = connection.cursor()
 
 
-cursor.execute("""
-UPDATE employees
-
-SET salary = salary + 5000
-
-
-WHERE department_id IN
-
-(
-    SELECT department_id
-    FROM departments
-    WHERE department_name='AI'
-)
-""")
+def show(title, statement):
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    for row in cursor.fetchall():
+        print(row)
 
 
-connection.commit()
+show("Before the updates", read_rows)
 
+cursor.execute(update_from)
+print("\nUPDATE ... FROM, a 10% raise for the AI department:", cursor.rowcount, "rows changed")
 
-print("UPDATE JOIN Equivalent Completed")
+cursor.execute(update_subquery)
+print("Subquery way, +1000 for the Python department:", cursor.rowcount, "row changed")
 
+print()
+show("After the updates (not saved yet)", read_rows)
 
-cursor.execute("""
-SELECT *
-FROM employees
-""")
+connection.rollback()
 
-
-print("\nEmployees After Update")
-print("---------------------")
-
-
-for row in cursor.fetchall():
-    print(row)
-
+print()
+show("After rollback (salaries are back)", read_rows)
 
 connection.close()

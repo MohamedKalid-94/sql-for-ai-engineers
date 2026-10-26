@@ -1,30 +1,26 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+titles = [
+    "JOIN ... USING (dept_id): the short way",
+    "JOIN ... ON: the long way (same answer)",
+]
+statements = read_statements(__file__)
+assert len(titles) == len(statements), "each title needs exactly one statement"
 
 connection = sqlite3.connect(DATABASE_PATH)
-
 cursor = connection.cursor()
 
-
-cursor.execute("""
-SELECT
-employees.emp_name,
-departments.department_name
-
-FROM employees
-
-JOIN departments
-
-USING(department_id)
-""")
-
-
-print("USING JOIN Result")
-print("-----------------")
-
-for row in cursor.fetchall():
-    print(row)
-
+for number, (title, statement) in enumerate(zip(titles, statements)):
+    if number:
+        print()
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
 connection.close()

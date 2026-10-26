@@ -1,65 +1,33 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+left_join, native_right, swapped_left, gaps = read_statements(__file__)
 
 connection = sqlite3.connect(DATABASE_PATH)
-
 cursor = connection.cursor()
 
 
-
-print("LEFT JOIN Result")
-print("----------------")
-
-
-cursor.execute("""
-SELECT
-
-employees.emp_name,
-departments.department_name
-
-
-FROM employees
-
-
-LEFT JOIN departments
+def show(title, statement):
+    print(title)
+    print("-" * len(title))
+    try:
+        cursor.execute(statement)
+    except sqlite3.OperationalError as error:
+        print("This SQLite is too old for it (needs 3.39 or newer):", error)
+        return
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
 
-ON employees.department_id =
-departments.department_id
-""")
-
-
-for row in cursor.fetchall():
-    print(row)
-
-
-
-print("\nRIGHT JOIN Equivalent Result")
-print("----------------------------")
-
-
-cursor.execute("""
-SELECT
-
-departments.department_name,
-employees.emp_name
-
-
-FROM departments
-
-
-LEFT JOIN employees
-
-
-ON departments.department_id =
-employees.department_id
-""")
-
-
-for row in cursor.fetchall():
-    print(row)
-
-
+show("LEFT JOIN: every employee is kept", left_join)
+print()
+show("RIGHT JOIN: every department is kept", native_right)
+print()
+show("The RIGHT JOIN answer again, with LEFT JOIN and the tables swapped", swapped_left)
+print()
+show("What each side leaves unmatched", gaps)
 
 connection.close()

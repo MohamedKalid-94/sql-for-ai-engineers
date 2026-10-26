@@ -1,0 +1,285 @@
+======================================================================
+Module_06_Joins
+======================================================================
+======================================================================
+00_join_setup.py
+======================================================================
+Maria added (she has no department)
+
+employees (dept_id None means no department)
+--------------------------------------------
+(101, 'John', 1, None)
+(102, 'Sara', 2, 101)
+(103, 'David', 3, 101)
+(104, 'Priya', 1, 102)
+(105, 'Alex', 5, 102)
+(106, 'Maria', None, 101)
+
+departments (Cloud has no employees)
+------------------------------------
+(1, 'AI')
+(2, 'Python')
+(3, 'Data Science')
+(4, 'Cloud')
+(5, 'GenAI')
+======================================================================
+01_using_joins.py
+======================================================================
+JOIN ... USING (dept_id): the short way
+---------------------------------------
+('Alex', 'GenAI')
+('David', 'Data Science')
+('John', 'AI')
+('Priya', 'AI')
+('Sara', 'Python')
+
+JOIN ... ON: the long way (same answer)
+---------------------------------------
+('Alex', 'GenAI')
+('David', 'Data Science')
+('John', 'AI')
+('Priya', 'AI')
+('Sara', 'Python')
+======================================================================
+02_inner_join.py
+======================================================================
+INNER JOIN: employees with their department names
+-------------------------------------------------
+('Alex', 72000.0, 'GenAI')
+('David', 65000.0, 'Data Science')
+('John', 75000.0, 'AI')
+('Priya', 90000.0, 'AI')
+('Sara', 85000.0, 'Python')
+
+Rows in the table versus rows after the join (Maria is lost)
+------------------------------------------------------------
+(6, 5)
+
+INNER JOIN with WHERE: only the AI department
+---------------------------------------------
+('John', 'AI')
+('Priya', 'AI')
+======================================================================
+03_left_join.py
+======================================================================
+LEFT JOIN: every employee (Maria's department is None)
+------------------------------------------------------
+('Alex', 'GenAI')
+('David', 'Data Science')
+('John', 'AI')
+('Maria', None)
+('Priya', 'AI')
+('Sara', 'Python')
+
+Employees with no department (LEFT JOIN + IS NULL)
+--------------------------------------------------
+('Maria',)
+======================================================================
+04_right_join.py
+======================================================================
+RIGHT JOIN: every department (Cloud has no employee)
+----------------------------------------------------
+('AI', 'John')
+('AI', 'Priya')
+('Python', 'Sara')
+('Data Science', 'David')
+('Cloud', None)
+('GenAI', 'Alex')
+
+Same answer on any SQLite: swap the tables and use LEFT JOIN
+------------------------------------------------------------
+('AI', 'John')
+('AI', 'Priya')
+('Python', 'Sara')
+('Data Science', 'David')
+('Cloud', None)
+('GenAI', 'Alex')
+
+Departments with no employees
+-----------------------------
+('Cloud',)
+======================================================================
+05_cross_join.py
+======================================================================
+CROSS JOIN: John and Sara paired with every department
+------------------------------------------------------
+('John', 'AI')
+('John', 'Python')
+('John', 'Data Science')
+('John', 'Cloud')
+('John', 'GenAI')
+('Sara', 'AI')
+('Sara', 'Python')
+('Sara', 'Data Science')
+('Sara', 'Cloud')
+('Sara', 'GenAI')
+
+How many pairs in total (6 x 5)
+-------------------------------
+(30,)
+
+A schedule grid: each department with each shift
+------------------------------------------------
+('AI', 'Evening')
+('AI', 'Morning')
+('Python', 'Evening')
+('Python', 'Morning')
+======================================================================
+06_full_join.py
+======================================================================
+FULL JOIN: Maria (no department) and Cloud (no employee) both appear
+--------------------------------------------------------------------
+('Maria', None)
+('John', 'AI')
+('Priya', 'AI')
+(None, 'Cloud')
+('David', 'Data Science')
+('Alex', 'GenAI')
+('Sara', 'Python')
+
+Same answer on any SQLite: LEFT JOIN + the unmatched rows, joined with UNION ALL
+--------------------------------------------------------------------------------
+('Maria', None)
+('John', 'AI')
+('Priya', 'AI')
+(None, 'Cloud')
+('David', 'Data Science')
+('Alex', 'GenAI')
+('Sara', 'Python')
+======================================================================
+07_self_join.py
+======================================================================
+Each employee with their manager (John has none)
+------------------------------------------------
+('John', None)
+('Sara', 'John')
+('David', 'John')
+('Priya', 'Sara')
+('Alex', 'Sara')
+('Maria', 'John')
+
+Who reports to John
+-------------------
+('Sara',)
+('David',)
+('Maria',)
+
+How many people report to each manager
+--------------------------------------
+('John', 3)
+('Sara', 2)
+======================================================================
+08_delete_join.py
+======================================================================
+Before the deletes
+------------------
+(101, 'John', 'AI')
+(102, 'Sara', 'Python')
+(103, 'David', 'Data Science')
+(104, 'Priya', 'AI')
+(105, 'Alex', 'GenAI')
+(106, 'Maria', None)
+
+Delete 1, employees of the GenAI department: 1 row removed
+Delete 2, employees with no matching department: 1 row removed
+
+After the deletes (not saved yet)
+---------------------------------
+(101, 'John', 1)
+(102, 'Sara', 2)
+(103, 'David', 3)
+(104, 'Priya', 1)
+
+After rollback (everyone is back)
+---------------------------------
+(101, 'John', 'AI')
+(102, 'Sara', 'Python')
+(103, 'David', 'Data Science')
+(104, 'Priya', 'AI')
+(105, 'Alex', 'GenAI')
+(106, 'Maria', None)
+======================================================================
+09_update_join.py
+======================================================================
+Before the updates
+------------------
+('John', 'AI', 75000.0)
+('Priya', 'AI', 90000.0)
+('Sara', 'Python', 85000.0)
+
+UPDATE ... FROM, a 10% raise for the AI department: 2 rows changed
+Subquery way, +1000 for the Python department: 1 row changed
+
+After the updates (not saved yet)
+---------------------------------
+('John', 'AI', 82500.0)
+('Priya', 'AI', 99000.0)
+('Sara', 'Python', 86000.0)
+
+After rollback (salaries are back)
+----------------------------------
+('John', 'AI', 75000.0)
+('Priya', 'AI', 90000.0)
+('Sara', 'Python', 85000.0)
+======================================================================
+10_left_join_vs_right_join.py
+======================================================================
+LEFT JOIN: every employee is kept
+---------------------------------
+('John', 'AI')
+('Sara', 'Python')
+('David', 'Data Science')
+('Priya', 'AI')
+('Alex', 'GenAI')
+('Maria', None)
+
+RIGHT JOIN: every department is kept
+------------------------------------
+('John', 'AI')
+('Priya', 'AI')
+('Sara', 'Python')
+('David', 'Data Science')
+(None, 'Cloud')
+('Alex', 'GenAI')
+
+The RIGHT JOIN answer again, with LEFT JOIN and the tables swapped
+------------------------------------------------------------------
+('John', 'AI')
+('Priya', 'AI')
+('Sara', 'Python')
+('David', 'Data Science')
+(None, 'Cloud')
+('Alex', 'GenAI')
+
+What each side leaves unmatched
+-------------------------------
+('department without employee', 'Cloud')
+('employee without department', 'Maria')
+======================================================================
+11_union_vs_join.py
+======================================================================
+JOIN: two columns side by side (names matched to departments)
+-------------------------------------------------------------
+('Alex', 'GenAI')
+('David', 'Data Science')
+('John', 'AI')
+('Priya', 'AI')
+('Sara', 'Python')
+
+UNION: one column, employee names and department names stacked
+--------------------------------------------------------------
+('AI',)
+('Alex',)
+('Cloud',)
+('Data Science',)
+('David',)
+('GenAI',)
+('John',)
+('Maria',)
+('Priya',)
+('Python',)
+('Sara',)
+
+Shape comparison: rows from the JOIN and rows from the UNION
+------------------------------------------------------------
+(5, 11)
