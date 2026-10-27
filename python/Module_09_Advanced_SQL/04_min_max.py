@@ -1,24 +1,29 @@
-from config import get_connection
+import sqlite3
+from config import DATABASE_PATH, read_statements
 
-conn = get_connection()
-cursor = conn.cursor()
+titles = [
+    "Lowest and highest salary",
+    "Who earns the highest salary",
+    "Lowest and highest salary in each department",
+    "MIN and MAX on text and dates (NULL dates are ignored)",
+    "MAX of nothing: the Cloud department has no employees",
+]
+statements = read_statements(__file__)
+assert len(titles) == len(statements), "each title needs exactly one statement"
 
-cursor.execute("""
-SELECT MIN(salary)
-FROM employees
-""")
+connection = sqlite3.connect(DATABASE_PATH)
+cursor = connection.cursor()
 
-print("Minimum Salary")
-print("--------------")
-print(cursor.fetchone()[0])
+for number, (title, statement) in enumerate(zip(titles, statements)):
+    if number:
+        print()
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
-cursor.execute("""
-SELECT MAX(salary)
-FROM employees
-""")
-
-print("\nMaximum Salary")
-print("--------------")
-print(cursor.fetchone()[0])
-
-conn.close()
+connection.close()

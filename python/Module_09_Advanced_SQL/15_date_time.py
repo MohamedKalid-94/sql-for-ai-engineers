@@ -1,36 +1,30 @@
-from config import get_connection
+import sqlite3
+from config import DATABASE_PATH, read_statements
 
-conn = get_connection()
-cursor = conn.cursor()
+titles = [
+    "date, time and datetime clean a value",
+    "Calendar maths (note: Jan 31 plus 1 month lands in March)",
+    "Days between the joining date and 2025-06-01",
+    "strftime formats a date any way we like",
+    "Weekday numbers (0 is Sunday, 6 is Saturday)",
+    "date('now') changes every day, so only its shape is checked",
+]
+statements = read_statements(__file__)
+assert len(titles) == len(statements), "each title needs exactly one statement"
 
-print("Current Date")
-print("------------")
+connection = sqlite3.connect(DATABASE_PATH)
+cursor = connection.cursor()
 
-cursor.execute("SELECT DATE('now')")
-print(cursor.fetchone()[0])
+for number, (title, statement) in enumerate(zip(titles, statements)):
+    if number:
+        print()
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
-print("\nCurrent Time")
-print("------------")
-
-cursor.execute("SELECT TIME('now')")
-print(cursor.fetchone()[0])
-
-print("\nCurrent DateTime")
-print("----------------")
-
-cursor.execute("SELECT DATETIME('now')")
-print(cursor.fetchone()[0])
-
-print("\nEmployees With Joining Date")
-print("---------------------------")
-
-cursor.execute("""
-SELECT emp_id,name,joining_date
-FROM employees
-WHERE joining_date IS NOT NULL
-""")
-
-for row in cursor.fetchall():
-    print(row)
-
-conn.close()
+connection.close()

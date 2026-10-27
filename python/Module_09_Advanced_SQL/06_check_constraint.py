@@ -1,29 +1,43 @@
-from config import get_connection
+import sqlite3
+from config import DATABASE_PATH, read_statements
 
-conn = get_connection()
-cursor = conn.cursor()
+(create_table, insert_valid, read_rows, bad_price,
+ bad_stock, bad_name, bad_update) = read_statements(__file__)
 
-cursor.executescript("""
-DROP TABLE IF EXISTS products;
+connection = sqlite3.connect(DATABASE_PATH)
+cursor = connection.cursor()
 
-CREATE TABLE products (
-    product_id INTEGER PRIMARY KEY,
-    product_name TEXT,
-    price REAL CHECK(price > 0)
-);
+cursor.execute(create_table)
+cursor.execute(insert_valid)
+connection.commit()
 
-INSERT INTO products VALUES
-(1,'Laptop',65000);
-""")
 
-conn.commit()
+def show_rows(title):
+    print(title)
+    print("-" * len(title))
+    cursor.execute(read_rows)
+    for row in cursor.fetchall():
+        print(row)
 
-print("CHECK Constraint Result")
-print("-----------------------")
 
-cursor.execute("SELECT * FROM products")
+show_rows("Products that pass every rule")
 
-for row in cursor.fetchall():
-    print(row)
+print("\nRows that break a rule")
+print("----------------------")
+rejected = [
+    ("Price of 0", bad_price),
+    ("Negative stock", bad_stock),
+    ("Name shorter than 3 letters", bad_name),
+    ("Update to a negative price", bad_update),
+]
+for title, statement in rejected:
+    try:
+        cursor.execute(statement)
+        print(f"{title:<28}: unexpectedly accepted")
+    except sqlite3.IntegrityError as error:
+        print(f"{title:<28}: rejected -> {error}")
 
-conn.close()
+print()
+show_rows("Products after all attempts (nothing bad got in)")
+
+connection.close()

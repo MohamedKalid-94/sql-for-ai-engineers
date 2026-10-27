@@ -1,0 +1,586 @@
+======================================================================
+Module_09_Advanced_SQL
+======================================================================
+======================================================================
+00_create_sample_tables.py
+======================================================================
+Joining date removed for 2 employees
+
+employees (None means the value is missing)
+-------------------------------------------
+(101, 'John', '9876543210', '2025-01-15')
+(102, 'Sara', None, '2025-02-10')
+(103, 'David', None, None)
+(104, 'Priya', '9123456780', '2024-12-05')
+(105, 'Alex', None, None)
+======================================================================
+01_wildcards.py
+======================================================================
+Names starting with S (%)
+-------------------------
+('Sara',)
+
+Emails whose name part ends in a
+--------------------------------
+('Priya', 'priya@gmail.com')
+('Sara', 'sara@gmail.com')
+
+Second letter is a (_a%)
+------------------------
+('David',)
+('Sara',)
+
+GLOB range: names starting with A to D
+--------------------------------------
+('Alex',)
+('David',)
+
+LIKE is not case sensitive: s% finds Sara
+-----------------------------------------
+('Sara',)
+
+GLOB is case sensitive: s% finds nobody
+---------------------------------------
+(no rows)
+
+A % in the pattern matches anything, so both rows come back
+-----------------------------------------------------------
+('50% off',)
+('500 items',)
+
+ESCAPE makes the % a real % sign, so only one row matches
+---------------------------------------------------------
+('50% off',)
+======================================================================
+02_sql_injection.py
+======================================================================
+A normal name: John
+-------------------
+  UNSAFE query built: SELECT emp_id, name, salary FROM employees WHERE name = 'John' ORDER BY emp_id;
+  UNSAFE result     : (101, 'John', 75000.0)
+  SAFE query        : the ? placeholder, the input is only data
+  SAFE result       : (101, 'John', 75000.0)
+
+An attack: make the test always true: x' OR '1'='1
+--------------------------------------------------
+  UNSAFE query built: SELECT emp_id, name, salary FROM employees WHERE name = 'x' OR '1'='1' ORDER BY emp_id;
+  UNSAFE result     : (101, 'John', 75000.0)
+  UNSAFE result     : (102, 'Sara', 85000.0)
+  UNSAFE result     : (103, 'David', 65000.0)
+  UNSAFE result     : (104, 'Priya', 90000.0)
+  UNSAFE result     : (105, 'Alex', 72000.0)
+  SAFE query        : the ? placeholder, the input is only data
+  SAFE result       : (no rows)
+
+An attack: sneak in a second command: x'; DROP TABLE employees; --
+------------------------------------------------------------------
+  UNSAFE query built: SELECT emp_id, name, salary FROM employees WHERE name = 'x'; DROP TABLE employees; --' ORDER BY emp_id;
+  UNSAFE result     : stopped by Python -> You can only execute one statement at a time.
+  SAFE query        : the ? placeholder, the input is only data
+  SAFE result       : (no rows)
+
+Employees still in the table: 5
+======================================================================
+03_sql_hosting.py
+======================================================================
+Database file      : Module_09_Advanced_SQL.db
+Where it lives     : one ordinary file next to the project, no server needed
+Journal mode       : delete
+Page size (bytes)  : 4096
+Text encoding      : UTF-8
+Integrity check    : ok
+
+Switch to WAL mode (many readers, one writer)
+Journal mode now   : wal
+Back to normal     : delete
+======================================================================
+04_min_max.py
+======================================================================
+Lowest and highest salary
+-------------------------
+(65000.0, 90000.0)
+
+Who earns the highest salary
+----------------------------
+('Priya', 90000.0)
+
+Lowest and highest salary in each department
+--------------------------------------------
+(1, 75000.0, 90000.0)
+(2, 85000.0, 85000.0)
+(3, 65000.0, 65000.0)
+(5, 72000.0, 72000.0)
+
+MIN and MAX on text and dates (NULL dates are ignored)
+------------------------------------------------------
+('Alex', 'Sara', '2024-12-05', '2025-02-10')
+
+MAX of nothing: the Cloud department has no employees
+-----------------------------------------------------
+(None,)
+======================================================================
+05_null_functions.py
+======================================================================
+COALESCE: fill a missing phone
+------------------------------
+('John', '9876543210')
+('Sara', 'Not available')
+('David', 'Not available')
+('Priya', '9123456780')
+('Alex', 'Not available')
+
+IFNULL: fill a missing joining date
+-----------------------------------
+('John', '2025-01-15')
+('Sara', '2025-02-10')
+('David', 'Not joined')
+('Priya', '2024-12-05')
+('Alex', 'Not joined')
+
+COALESCE with many values: phone first, then email
+--------------------------------------------------
+('John', '9876543210')
+('Sara', 'sara@gmail.com')
+('David', 'david@gmail.com')
+('Priya', '9123456780')
+('Alex', 'alex@gmail.com')
+
+NULLIF: NULL when the two values are equal
+------------------------------------------
+(None, 10)
+
+NULLIF hides 65000 from AVG, as if it were unknown
+--------------------------------------------------
+(77400.0, 80500.0)
+
+IIF: a short if / else
+----------------------
+('John', 'Has phone')
+('Sara', 'No phone')
+('David', 'No phone')
+('Priya', 'Has phone')
+('Alex', 'No phone')
+======================================================================
+06_check_constraint.py
+======================================================================
+Products that pass every rule
+-----------------------------
+(1, 'Laptop', 65000.0, 5)
+(2, 'Mouse', 500.0, 40)
+
+Rows that break a rule
+----------------------
+Price of 0                  : rejected -> CHECK constraint failed: price > 0
+Negative stock              : rejected -> CHECK constraint failed: stock >= 0
+Name shorter than 3 letters : rejected -> CHECK constraint failed: length(name) >= 3
+Update to a negative price  : rejected -> CHECK constraint failed: price > 0
+
+Products after all attempts (nothing bad got in)
+------------------------------------------------
+(1, 'Laptop', 65000.0, 5)
+(2, 'Mouse', 500.0, 40)
+======================================================================
+07_default_constraint.py
+======================================================================
+Two tickets added with only a title: 2 rows
+One ticket added with its own status and priority: 1 row
+
+Try to write NULL into status on purpose
+Rejected: NOT NULL constraint failed: tickets.status
+
+Tickets (the first two got their values from DEFAULT)
+-----------------------------------------------------
+(1, 'Fix login page', 'Open', 3, '2025-01-08')
+(2, 'Update README', 'Open', 3, '2025-01-08')
+(3, 'Server down', 'Urgent', 1, '2025-01-08')
+
+The defaults SQLite remembers
+-----------------------------
+status   : 'Open'
+priority : 3
+due_on   : date('2025-01-01', '+7 days')
+======================================================================
+08_stored_procedures.py
+======================================================================
+Calling get_staff(dept, min_salary) with different arguments
+------------------------------------------------------------
+get_staff(1, 0) -> [(101, 'John', 75000.0), (104, 'Priya', 90000.0)]
+get_staff(1, 80000) -> [(104, 'Priya', 90000.0)]
+get_staff(2, 0) -> [(102, 'Sara', 85000.0)]
+
+Calling give_raise(1, 10)
+-------------------------
+Rows changed: 2
+get_staff(1, 0) -> [(101, 'John', 82500.0), (104, 'Priya', 99000.0)]
+After rollback  -> [(101, 'John', 75000.0), (104, 'Priya', 90000.0)]
+
+A Python function used inside SQL
+---------------------------------
+('John', 75000.0, 7500.0)
+('Sara', 85000.0, 8500.0)
+('David', 65000.0, 6500.0)
+('Priya', 90000.0, 9000.0)
+('Alex', 72000.0, 7200.0)
+======================================================================
+09_null_values.py
+======================================================================
+NULL does maths and comparisons strangely (None is NULL)
+--------------------------------------------------------
+(None, None, 1)
+
+IS NULL: employees with no phone
+--------------------------------
+('Alex',)
+('David',)
+('Sara',)
+
+IS NOT NULL: employees with a phone
+-----------------------------------
+('John',)
+('Priya',)
+
+COUNT(*) counts rows, COUNT(column) skips NULLs
+-----------------------------------------------
+(5, 2, 3)
+
+Sorting: NULLs come first
+-------------------------
+('Alex', None)
+('David', None)
+('Priya', '2024-12-05')
+('John', '2025-01-15')
+('Sara', '2025-02-10')
+
+NULLS LAST: NULLs go to the end
+-------------------------------
+('Priya', '2024-12-05')
+('John', '2025-01-15')
+('Sara', '2025-02-10')
+('Alex', None)
+('David', None)
+======================================================================
+10_transactions.py
+======================================================================
+Balances at the start      : [('Asha', 1000.0), ('Ravi', 500.0)]
+
+Transfer 1: Asha sends 200 to Ravi
+Result                     : COMMITTED
+Balances                   : [('Asha', 800.0), ('Ravi', 700.0)]
+
+Inside a transaction, before deciding
+After the debit, not saved : [('Asha', 700.0), ('Ravi', 700.0)]
+After rollback             : [('Asha', 800.0), ('Ravi', 700.0)]
+
+Transfer 2: Asha sends 100 to Nobody (the debit works, then the credit fails)
+Result                     : ROLLED BACK (receiver Nobody not found)
+Balances (debit undone)    : [('Asha', 800.0), ('Ravi', 700.0)]
+
+Transfer 3: Ravi sends 5000 to Asha (more than he has)
+Result                     : ROLLED BACK (CHECK constraint failed: balance >= 0)
+Balances                   : [('Asha', 800.0), ('Ravi', 700.0)]
+======================================================================
+11_sub_queries.py
+======================================================================
+One value: employees earning above the company average
+------------------------------------------------------
+('Priya', 90000.0)
+('Sara', 85000.0)
+
+A list: employees in the AI or GenAI departments
+------------------------------------------------
+('Alex', 5)
+('John', 1)
+('Priya', 1)
+
+In the column list: how far each salary is from the average
+-----------------------------------------------------------
+('John', 75000.0, -2400.0)
+('Sara', 85000.0, 7600.0)
+('David', 65000.0, -12400.0)
+('Priya', 90000.0, 12600.0)
+('Alex', 72000.0, -5400.0)
+
+A small table: departments whose average salary is above 75000
+--------------------------------------------------------------
+('Python', 85000.0)
+('AI', 82500.0)
+
+Correlated: employees earning above their own department average
+----------------------------------------------------------------
+('Priya', 1, 90000.0)
+======================================================================
+12_handling_duplicates.py
+======================================================================
+The table with repeated rows
+----------------------------
+(1, 'Asha', 'asha@gmail.com')
+(2, 'Ravi', 'ravi@gmail.com')
+(3, 'Asha', 'asha@gmail.com')
+(4, 'Meena', 'meena@gmail.com')
+(5, 'Ravi', 'ravi@gmail.com')
+(6, 'Asha', 'asha@gmail.com')
+
+Which emails repeat, and how many times
+---------------------------------------
+('asha@gmail.com', 3)
+('ravi@gmail.com', 2)
+
+DISTINCT shows each person once, but the table is unchanged
+-----------------------------------------------------------
+('Asha', 'asha@gmail.com')
+('Meena', 'meena@gmail.com')
+('Ravi', 'ravi@gmail.com')
+
+Preview: the rows that would be deleted (everything but the first of each email)
+--------------------------------------------------------------------------------
+(3, 'Asha')
+(5, 'Ravi')
+(6, 'Asha')
+
+Duplicate rows deleted: 3
+A UNIQUE index on email now guards the table
+
+Try to add the same email again
+Rejected: UNIQUE constraint failed: signups.email
+INSERT OR IGNORE: rows inserted = 0 (skipped quietly)
+
+The table after cleaning
+------------------------
+(1, 'Asha', 'asha@gmail.com')
+(2, 'Ravi', 'ravi@gmail.com')
+(4, 'Meena', 'meena@gmail.com')
+======================================================================
+13_sequences.py
+======================================================================
+Counter table: invoice_number starts at 1000, steps of 1
+--------------------------------------------------------
+Next invoice number: 1001
+Next invoice number: 1002
+Next invoice number: 1003
+
+Counter table: ticket_number starts at 100, steps of 5
+------------------------------------------------------
+Next ticket number : 105
+Next ticket number : 110
+
+Where each counter stands now
+-----------------------------
+('invoice_number', 1003)
+('ticket_number', 110)
+
+The other equivalent: AUTOINCREMENT keeps a hidden counter
+----------------------------------------------------------
+(1, 'Asha')
+(2, 'Ravi')
+(3, 'Meena')
+Hidden counter (sqlite_sequence): [('tokens', 3)]
+======================================================================
+14_auto_increment.py
+======================================================================
+Three rows added to plain_ids, last id: 3
+Three rows added to safe_ids , last id: 3
+
+Row with id 3 deleted from both tables
+New row in plain_ids gets id: 3 <- the number 3 is REUSED
+New row in safe_ids  gets id: 4 <- AUTOINCREMENT never reuses 3
+
+plain_ids (INTEGER PRIMARY KEY)
+-------------------------------
+(1, 'first')
+(2, 'second')
+(3, 'new')
+
+safe_ids (AUTOINCREMENT)
+------------------------
+(1, 'first')
+(2, 'second')
+(4, 'new')
+
+The hidden counters (tokens comes from the last lesson)
+-------------------------------------------------------
+('safe_ids', 4)
+('tokens', 3)
+======================================================================
+15_date_time.py
+======================================================================
+date, time and datetime clean a value
+-------------------------------------
+('2025-03-15', '14:30:45', '2025-03-15 14:30:45')
+
+Calendar maths (note: Jan 31 plus 1 month lands in March)
+---------------------------------------------------------
+('2025-02-01', '2025-03-03', '2025-01-24', '2025-01-01', '2025-02-28')
+
+Days between the joining date and 2025-06-01
+--------------------------------------------
+('Priya', '2024-12-05', 178)
+('John', '2025-01-15', 137)
+('Sara', '2025-02-10', 111)
+
+strftime formats a date any way we like
+---------------------------------------
+('Priya', '2024', '12', '05/12/2024')
+('John', '2025', '01', '15/01/2025')
+('Sara', '2025', '02', '10/02/2025')
+
+Weekday numbers (0 is Sunday, 6 is Saturday)
+--------------------------------------------
+('2025-03-15', '6')
+('2025-03-16', '0')
+('2025-03-17', '1')
+
+date('now') changes every day, so only its shape is checked
+-----------------------------------------------------------
+(10, 1)
+======================================================================
+16_cursors.py
+======================================================================
+Walking through the rows with a cursor
+--------------------------------------
+fetchone    : (101, 'John', 75000.0)
+fetchone    : (102, 'Sara', 85000.0)
+fetchmany(2): [(103, 'David', 65000.0), (104, 'Priya', 90000.0)]
+fetchall    : [(105, 'Alex', 72000.0)] <- whatever is left
+
+A for loop does the same, one row at a time
+-------------------------------------------
+(101, 'John', 75000.0)
+(102, 'Sara', 85000.0)
+(103, 'David', 65000.0)
+(104, 'Priya', 90000.0)
+(105, 'Alex', 72000.0)
+
+Row by row: a 5 percent raise, one UPDATE for each employee
+-----------------------------------------------------------
+Salaries: [78750.0, 89250.0, 68250.0, 94500.0, 75600.0]
+
+Set based: the same raise in ONE command
+----------------------------------------
+Salaries: [78750.0, 89250.0, 68250.0, 94500.0, 75600.0]
+
+Same result: True
+One command is shorter, and it is faster on big tables.
+======================================================================
+17_common_table_expression.py
+======================================================================
+A simple CTE: the high earners
+------------------------------
+('Priya', 90000.0)
+('Sara', 85000.0)
+
+A CTE joined to the tables: each salary beside its department average
+---------------------------------------------------------------------
+('John', 75000.0, 'AI', 82500.0)
+('Sara', 85000.0, 'Python', 85000.0)
+('David', 65000.0, 'Data Science', 65000.0)
+('Priya', 90000.0, 'AI', 82500.0)
+('Alex', 72000.0, 'GenAI', 72000.0)
+
+A recursive CTE that counts from 1 to 5
+---------------------------------------
+(1,)
+(2,)
+(3,)
+(4,)
+(5,)
+
+A recursive CTE that walks the company tree (level, name, path)
+---------------------------------------------------------------
+(0, 'John', 'John')
+(1, 'David', 'John > David')
+(1, 'Sara', 'John > Sara')
+(2, 'Alex', 'John > Sara > Alex')
+(2, 'Priya', 'John > Sara > Priya')
+======================================================================
+18_group_by_vs_order_by.py
+======================================================================
+ORDER BY: every employee, just sorted (5 rows)
+----------------------------------------------
+(1, 'Priya', 90000.0)
+(1, 'John', 75000.0)
+(2, 'Sara', 85000.0)
+(3, 'David', 65000.0)
+(5, 'Alex', 72000.0)
+
+GROUP BY: one row for each department (4 rows)
+----------------------------------------------
+(1, 2, 165000.0, 82500.0)
+(2, 1, 85000.0, 85000.0)
+(3, 1, 65000.0, 65000.0)
+(5, 1, 72000.0, 72000.0)
+
+GROUP BY, then ORDER BY the totals
+----------------------------------
+(1, 165000.0)
+(2, 85000.0)
+(5, 72000.0)
+(3, 65000.0)
+
+How many rows each one gives back
+---------------------------------
+(5, 4)
+
+GROUP BY with LEFT JOIN: even Cloud shows up, with 0 staff
+----------------------------------------------------------
+('AI', 2)
+('Python', 1)
+('Data Science', 1)
+('Cloud', 0)
+('GenAI', 1)
+======================================================================
+19_in_vs_exists.py
+======================================================================
+IN: departments that have employees
+-----------------------------------
+(1, 'AI')
+(2, 'Python')
+(3, 'Data Science')
+(5, 'GenAI')
+
+EXISTS: the same answer
+-----------------------
+(1, 'AI')
+(2, 'Python')
+(3, 'Data Science')
+(5, 'GenAI')
+
+NOT IN: departments with no employees
+-------------------------------------
+(4, 'Cloud')
+
+NOT EXISTS: the same answer
+---------------------------
+(4, 'Cloud')
+
+NOT IN trap: John has no manager (NULL), so this finds nobody
+-------------------------------------------------------------
+(no rows)
+
+NOT EXISTS: employees who manage nobody, found correctly
+--------------------------------------------------------
+('Alex',)
+('David',)
+('Priya',)
+======================================================================
+20_database_tuning.py
+======================================================================
+
+No index on salary: every row is read
+-------------------------------------
+   SCAN employees
+
+Index created: idx_employees_salary
+
+The same query with the index
+-----------------------------
+   SEARCH employees USING INDEX idx_employees_salary (salary>?)
+
+Tip 2: salary + 0 hides the column, so the index is NOT used
+------------------------------------------------------------
+   SCAN employees
+
+Index created: idx_employees_dept_salary (dept_id, salary)
+
+Tip 3: the index holds both columns the query needs (COVERING)
+--------------------------------------------------------------
+   SEARCH employees USING COVERING INDEX idx_employees_dept_salary (dept_id=?)

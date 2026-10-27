@@ -1,26 +1,12 @@
--- ============================================
--- Module 09 : Advanced SQL
--- Create Sample Tables
--- ============================================
+-- Lesson 0 of 20 | Create Sample Tables
+-- The shared setup gave this module 5 employees and 5 departments.
+-- Several lessons need missing values (NULL), so David and Alex lose their joining date.
+-- Sara, David and Alex already have no phone number.
 
-DROP TABLE IF EXISTS employees;
+UPDATE employees
+SET joining_date = NULL
+WHERE emp_id IN (103, 105);
 
-CREATE TABLE employees (
-    emp_id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    email TEXT UNIQUE,
-    salary REAL,
-    department_id INTEGER,
-    phone TEXT,
-    joining_date TEXT,
-    is_active INTEGER DEFAULT 1
-);
-
-INSERT INTO employees VALUES
-(101,'John','john@gmail.com',75000,1,'9876543210','2025-01-15',1),
-(102,'Sara','sara@gmail.com',85000,2,NULL,'2025-02-10',1),
-(103,'David','david@gmail.com',65000,3,NULL,NULL,1),
-(104,'Priya','priya@gmail.com',90000,1,'9123456780','2024-12-01',1),
-(105,'Alex','alex@gmail.com',72000,5,NULL,NULL,1);
-
-SELECT * FROM employees;
+SELECT emp_id, name, phone, joining_date
+FROM employees
+ORDER BY emp_id;
