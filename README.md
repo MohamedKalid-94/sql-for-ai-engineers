@@ -1,404 +1,18 @@
-# SQL for AI Engineers 🚀
+# SQL for AI Engineers
 
-A comprehensive SQL learning repository with SQL scripts, Python (`sqlite3`) implementations, documentation, and automated execution—designed specifically for AI Engineers.
+Learn SQL by running it. Every lesson is a pair of files: a `.sql` file with the queries and a `.py` file that runs them with Python's built-in `sqlite3` module. One command runs a single module or the whole course, and saves what every lesson printed.
 
-![Python](https://img.shields.io/badge/Python-3.x-blue)
-![SQLite](https://img.shields.io/badge/SQLite-Database-green)
-![SQL](https://img.shields.io/badge/SQL-Learning-orange)
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![SQLite](https://img.shields.io/badge/SQLite-3.35%2B-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
-![Status](https://img.shields.io/badge/Modules-10%20Completed-brightgreen)
 
-SQL is one of the core skills required for modern AI Engineers.
-
-This repository prepares you for building:
-
-- Machine Learning Applications
-- Data Engineering Pipelines
-- Retrieval-Augmented Generation (RAG)
-- AI Chatbots
-- Agentic AI Systems
-- Multi-Agent Workflows
-- FastAPI Backend Services
-- Document Management Systems
-- Vector Database Metadata Storage
-- AI Conversation History
-
-Each module includes:
-
-- SQL implementation
-- Equivalent Python (`sqlite3`) implementation
-- Documentation
-- Automated execution using `run_module.py`
-- Execution output logs
-
-## 📑 Table of Contents
-
-- [Project Overview](#-sql-for-ai-engineers-)
-- [Project Goal](#-project-goal)
-- [Technology Stack](#-technology-stack)
-- [Why SQLite?](#-why-sqlite)
-- [Repository Structure](#-repository-structure)
-- [Project Screenshots](#-project-screenshots)
-- [Setup Instructions](#️-setup-instructions)
-- [Running the Project](#️-running-the-project)
-- [Learning Modules](#-learning-modules)
-- [Connection With AI Engineering](#-connection-with-ai-engineering)
-- [Future Integration Goals](#-future-integration-goals)
-- [Long-Term Roadmap](#-long-term-roadmap)
-- [Learning Progress](#-learning-progress)
-- [Repository Achievements](#-repository-achievements)
-- [Features](#-features)
-- [Repository Statistics](#-repository-statistics)
-- [Upcoming Modules](#-upcoming-modules)
-- [Ideal For](#-ideal-for)
-- [Support](#-support)
-- [License](#-license)
-- [Topics](#-topics)
-- [Author](#-author)
-
----
-
-# 🎯 Project Goal
-
-Modern AI Engineers need more than LLM knowledge. Strong database skills are required for:
-
-- Storing application data
-- Managing user information
-- Building AI application backends
-- Creating RAG pipelines
-- Managing document metadata
-- Tracking conversations and AI workflows
-- Designing scalable AI systems
-
-This project builds SQL skills from beginner to advanced level through practical implementation.
-
----
-
-# 🛠️ Technology Stack
-
-| Technology | Purpose |
-|---|---|
-| Python | Execute SQL operations programmatically |
-| SQLite | Lightweight relational database |
-| SQL | Database queries and management |
-| VS Code | Development environment |
-| Git & GitHub | Version control and portfolio |
-
----
-
-# ❓ Why SQLite?
-
-SQLite is used throughout this repository because:
-
-- No installation required
-- Cross-platform
-- Lightweight and fast
-- Beginner friendly
-- Supports most SQL concepts
-- Perfect for learning SQL before moving to MySQL, PostgreSQL, or SQL Server
-
-> **Note**
->
-> SQLite does not support some SQL Server or MySQL features such as:
->
-> - Stored Procedures
-> - RIGHT JOIN
-> - FULL JOIN
-> - SEQUENCE
-> - Clustered Index
->
-> Wherever these features are unavailable, this repository demonstrates SQLite-compatible alternatives while preserving the original SQL concept.
-
----
-
-# 📂 Repository Structure
-
-```
-sql-for-ai-engineers/
-
-├── database/
-│   ├── company.db
-│   └── backup/
-│
-├── docs/
-│   ├── Module_01_Database.md
-│   ├── Module_02_Tables.md
-│   ├── ...
-│   └── Module_10_SQL_Functions.md
-│
-├── outputs/
-│   ├── Module_01_Database.txt
-│   ├── Module_02_Tables.txt
-│   └── ...
-│
-├── python/
-│   ├── config.py
-│   ├── Module_01_Database/
-│   ├── ...
-│   └── Module_10_SQL_Functions/
-│
-├── sql/
-│   ├── Module_01_Database/
-│   ├── ...
-│   └── Module_10_SQL_Functions/
-│
-├── run_module.py
-├── requirements.txt
-└── README.md
-```
-
----
-
-# 📸 Project Screenshots
-
-## Module Execution
 ![Execution Output](assets/execution_output.png)
 
+## Why SQL matters for AI engineering
 
-## Repository Structure
-![Folder Structure](assets/folder_structure.png)
+AI applications store users, documents, chat history, evaluation results and agent tasks. Most of that lives in a relational database. This course covers the SQL those applications rely on: joins, constraints, indexes, transactions, parameterized queries (the defence against SQL injection), JSON functions and recursive CTEs. The next modules add window functions and a complete schema for an AI application.
 
----
-
-# ⚙️ Setup Instructions
-
-## 1. Clone Repository
-
-```bash
-git clone https://github.com/<username>/sql-for-ai-engineers.git
-```
-
-Move into project:
-
-```bash
-cd sql-for-ai-engineers
-```
-
----
-
-## 2. Create Virtual Environment
-
-Windows:
-
-```bash
-python -m venv .venv
-```
-
-Activate:
-
-```bash
-.venv\Scripts\activate
-```
-
----
-
-## 3. Install Requirements
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# ▶️ Running the Project
-
-Run all examples through the automation script:
-
-```bash
-python run_module.py
-```
-
-Select the required module:
-
-Example:
-
-```
-Available Modules
-
-1. Module_01_Database
-
-Select Module Number: 1
-```
-
-The execution output will be saved automatically:
-
-```
-outputs/
-└── Module_01_Database/
-    └── output.txt
-```
-
----
-
-# 📚 Learning Modules
-
-## ✅ Module 01: SQL Database Management
-
-- Create Database
-- Show Database
-- Select Database
-- Rename Database
-- Backup Database
-- Drop Database
-
----
-
-## ✅ Module 02: SQL Tables
-
-- Create Table
-- Show Tables
-- Rename Table
-- Truncate Table (SQLite Equivalent)
-- Clone Tables
-- Temporary Tables
-- Alter Tables
-- Constraints
-- Delete Table Data
-- Drop Tables
-
----
-
-## ✅ Module 03: SQL Queries
-
-- Insert Sample Data
-- INSERT
-- SELECT
-- SELECT INTO (SQLite Equivalent)
-- INSERT INTO SELECT
-- UPDATE
-- DELETE
-- ORDER BY
-
----
-
-## ✅ Module 04: SQL Views
-
-- Create Views
-- Update Views (SQLite Equivalent)
-- Drop Views
-- Rename Views (SQLite Equivalent)
-
----
-
-## ✅ Module 05: SQL Operators and Clauses 
-
-- WHERE Clause
-- TOP / LIMIT Clause
-- DISTINCT Clause
-- ORDER BY Clause
-- GROUP BY Clause
-- HAVING Clause
-- AND & OR Operators
-- BOOLEAN Operator
-- LIKE Operator
-- IN Operator
-- ANY / ALL Operators
-- EXISTS Operator
-- CASE Expression
-- NOT Operator
-- NOT EQUAL Operator
-- IS NULL
-- IS NOT NULL
-- NOT NULL Constraint
-- BETWEEN Operator
-- UNION Operator
-- UNION vs UNION ALL
-- INTERSECT Operator
-- EXCEPT Operator
-- Aliases
-
----
-
-## ✅ Module 06: SQL Joins 
-
-- USING JOIN
-- INNER JOIN
-- LEFT JOIN
-- RIGHT JOIN
-- CROSS JOIN
-- FULL JOIN
-- SELF JOIN
-- DELETE JOIN
-- UPDATE JOIN
-- LEFT JOIN vs RIGHT JOIN
-- UNION vs JOIN
-
-> *RIGHT JOIN and FULL JOIN are demonstrated using SQLite-compatible alternatives.
-
----
-
-## ✅ Module 07: SQL Keys 
-
-- UNIQUE Key
-- PRIMARY Key
-- FOREIGN Key
-- Composite Key
-- Alternate Key
-
----
-
-## ✅ Module 08: SQL Indexes 
-
-- SQL Indexes
-- Create Index
-- Drop Index
-- Show Indexes
-- Unique Index
-- Clustered Index
-- Non-Clustered Index
-
----
-
-## ✅ Module 09: Advanced SQL 
-
-- Wildcards
-- SQL Injection
-- SQL Hosting
-- MIN & MAX
-- NULL Functions
-- CHECK Constraint
-- DEFAULT Constraint
-- Stored Procedures (SQLite Equivalent)
-- NULL Values
-- Transactions
-- Sub Queries
-- Handling Duplicates
-- Sequences (SQLite Equivalent)
-- AUTO INCREMENT
-- Date & Time Functions
-- Cursors (SQLite Equivalent)
-- Common Table Expression (CTE)
-- GROUP BY vs ORDER BY
-- IN vs EXISTS
-- Database Tuning
-
----
-
-## ✅ Module 10: SQL Functions
-
-- Date Functions
-- String Functions
-- Aggregate Functions
-- Numeric Functions
-- Text & Image Functions
-- Statistical Functions
-- Logical Functions
-- Cursor Functions (SQLite Equivalent)
-- JSON Functions
-- Conversion Functions
-- Datatype Functions
-
----
-
-# 🤖 Connection With AI Engineering
-
-SQL knowledge is important for building:
-
-## RAG Applications
-
-Example:
-
-```
+```text
                  User
                    │
              AI Application
@@ -408,172 +22,113 @@ Example:
         ┌──────────┴──────────┐
         │                     │
    SQL Database         Vector Database
-        │                     │
- Users • Chats          Embeddings
- Projects               Chunks
- Metadata               Similarity Search
+ users, chats, files    embeddings, chunks
         └──────────┬──────────┘
                    │
                   LLM
-                   │
-               AI Response
 ```
 
-SQL stores:
+## Quick start
 
-- Users
-- Projects
-- Documents
-- Chat History
-- Permissions
-- AI Agent Tasks
+```bash
+git clone https://github.com/MohamedKalid-94/sql-for-ai-engineers.git
+cd sql-for-ai-engineers
+```
 
----
+Nothing needs installing: the course uses only Python's standard library.
 
-# 🔥 Future Integration Goals
+```bash
+python run_module.py          # shows a menu
+python run_module.py 6        # runs Module 6 only
+python run_module.py --all    # runs all ten modules
+```
 
-This repository will later connect with:
+What each lesson printed is saved in `outputs/<module>/output.txt`. The files are committed, so you can read the results without running anything. Lines that say `Rejected:` are intentional: the lesson is showing a rule refusing bad data.
 
-- Python Data Processing
-- SQLAlchemy
-- FastAPI
-- LangChain
-- LangGraph
-- RAG Applications
-- Agentic AI Systems
-- Vector Databases
+## How it works
 
----
+- Every lesson has a `.sql` file and a `.py` file with the same name. The `.py` file loads its SQL with `read_statements(__file__)` from `python/config.py`, so each query is written once.
+- The runner gives every module its own fresh database. Modules 3 to 10 start with the same `employees` and `departments` tables, built from `sql/common/schema.sql` and `sql/common/seed.sql`. Modules 1 and 2 start empty because they teach how to create databases and tables.
+- Results are deterministic: fixed dates, sorted rows, and file names instead of local paths, so running a module twice gives identical output.
+- The `.sql` files are written to be read next to the Python, not run on their own. Some statements are rejected on purpose.
 
-# 🌟 Long-Term Roadmap
+## Repository structure
 
-This repository is the SQL foundation for a complete AI Engineering learning series.
+```text
+sql-for-ai-engineers/
+├── run_module.py        runs one module or all modules
+├── python/
+│   ├── config.py        paths, connection helper, read_statements()
+│   └── Module_01_Database/ ... Module_10_SQL_Functions/
+├── sql/
+│   ├── common/          shared schema.sql and seed.sql
+│   └── Module_01_Database/ ... Module_10_SQL_Functions/
+├── outputs/             one output.txt per module
+├── docs/                notes for each module
+├── assets/              screenshots
+├── database/            created on the first run (*.db files are not committed)
+├── requirements.txt
+└── CHANGELOG.md, CONTRIBUTING.md, ROADMAP.md, LICENSE
+```
 
-Future repositories include:
+## Modules
 
-- Python for AI Engineers
-- FastAPI for AI
-- SQLAlchemy ORM
-- PostgreSQL
-- LangChain
-- LangGraph
-- RAG Systems
-- Agentic AI
-- Production AI Applications
+112 runnable scripts across 10 modules.
 
----
+| Module | Scripts | What you learn |
+|---|---|---|
+| 01 Database | 6 | create, show, select, rename, backup and drop a database (in SQLite, a database is one file) |
+| 02 Tables | 10 | create, alter, clone, temporary tables, constraints, truncate and drop |
+| 03 Queries | 8 | INSERT, SELECT, UPDATE, DELETE, ORDER BY, INSERT INTO SELECT |
+| 04 Views | 4 | create, change, rename and drop saved queries |
+| 05 Operators and Clauses | 25 | WHERE, GROUP BY, HAVING, LIKE, CASE, NULL, UNION, INTERSECT, EXCEPT, aliases |
+| 06 Joins | 12 | inner, left, right, full, cross and self joins, update and delete with joins |
+| 07 Keys | 6 | unique, primary, foreign, composite and alternate keys |
+| 08 Indexes | 8 | creating indexes and reading query plans (SCAN versus SEARCH) |
+| 09 Advanced SQL | 21 | SQL injection, transactions, subqueries, CTEs, duplicates, dates, tuning |
+| 10 SQL Functions | 12 | date, string, numeric, aggregate, statistical, JSON, conversion and type functions |
 
-# 📈 Learning Progress
+## SQLite compared with MySQL and SQL Server
 
-| Module | Status |
-|---------|--------|
-| Module 01 - SQL Database | ✅ Completed |
-| Module 02 - SQL Tables | ✅ Completed |
-| Module 03 - SQL Queries | ✅ Completed |
-| Module 04 - SQL Views | ✅ Completed |
-| Module 05 - SQL Operators | ✅ Completed |
-| Module 06 - SQL Joins | ✅ Completed |
-| Module 07 - SQL Keys | ✅ Completed |
-| Module 08 - SQL Indexes | ✅ Completed |
-| Module 09 - Advanced SQL | ✅ Completed |
-| Module 10 - SQL Functions | ✅ Completed |
+Where SQLite lacks a command, the lesson shows the equivalent.
 
----
+| Other databases | In SQLite |
+|---|---|
+| `CREATE DATABASE`, `USE`, `DROP DATABASE` | one file per database, `ATTACH`, `PRAGMA database_list`, delete the file |
+| `TRUNCATE TABLE` | `DELETE FROM` plus resetting `sqlite_sequence` |
+| `SELECT ... INTO` | `CREATE TABLE ... AS SELECT` |
+| `ALTER VIEW` | `DROP VIEW` then `CREATE VIEW` |
+| `RIGHT JOIN`, `FULL JOIN` | supported from SQLite 3.39; the lessons also show the older way |
+| `UPDATE` or `DELETE` with `JOIN` | `UPDATE ... FROM` (3.33+) or a subquery |
+| stored procedures | Python functions with named parameters, and `create_function` |
+| sequences | a counter table, or `AUTOINCREMENT` |
+| clustered index | `INTEGER PRIMARY KEY` or a `WITHOUT ROWID` table |
+| `TEXT` and `IMAGE` types | `TEXT` and `BLOB` |
 
-# 🏆 Repository Achievements
+## Requirements
 
-✔ 10 Completed Modules
-✔ 110+ SQL Examples
-✔ 110+ Python (`sqlite3`) Examples
-✔ Automated Module Runner
-✔ SQLite-Compatible SQL Implementations
-✔ AI Engineering Focused Learning Path
+- Python 3.12 (the version the course was tested on)
+- SQLite 3.35 or newer, which comes with Python. Check yours with `python -c "import sqlite3; print(sqlite3.sqlite_version)"`. Native RIGHT and FULL JOIN need 3.39, and the lessons say so if your version is older.
 
----
+## Troubleshooting
 
-# ✨ Features
+- `FileNotFoundError: ... schema.sql`: the folder `sql/common/` is missing from your copy.
+- `no such table` when running a script by hand: scripts expect the runner to build their database first. Use `python run_module.py <number>`.
+- `PermissionError` on Windows: another program (such as a database viewer) has a `.db` file open. Close it and run again.
 
-- 100+ SQL examples
-- Equivalent Python (`sqlite3`) implementation
-- Module-wise documentation
-- Automated execution using `run_module.py`
-- Execution logs for every module
-- SQLite-compatible alternatives for unsupported SQL features
-- AI Engineer focused learning path
-- Beginner-friendly code with practical examples
+## Roadmap
 
----
+- Module 11: window functions
+- Module 12: a complete SQL schema for an AI application (documents, chunks, conversations, messages)
+- Later: SQL with pandas, SQLAlchemy, PostgreSQL
 
-# 📊 Repository Statistics
+## License
 
-- 110+ SQL examples
-- 110+ Python (`sqlite3`) examples
-- 10 complete learning modules
-- Module-wise documentation
-- Automated execution runner
-- SQLite-compatible implementations
-- AI Engineer–focused examples
-- Beginner-friendly explanations
-- Consistent SQL ↔ Python comparison
+MIT, see `LICENSE`.
 
----
+## Author
 
-# 🚀 Upcoming Modules
-
-- Module 11 – SQL Window Functions
-- Module 12 – SQL Triggers
-- Module 13 – SQL Stored Procedures (SQL Server)
-- Module 14 – SQL Transactions (Advanced)
-- Module 15 – SQL Performance Optimization
-- Module 16 – SQL Interview Questions
-- Module 17 – SQL + Pandas
-- Module 18 – SQLAlchemy ORM
-- Module 19 – PostgreSQL for AI
-- Module 20 – SQL in RAG & AI Applications
-
----
-
-# 💼 Ideal For
-
-This repository is useful for:
-
-- Students
-- Software Engineers
-- Data Engineers
-- Machine Learning Engineers
-- Generative AI Engineers
-- AI Application Developers
-- Anyone preparing for SQL interviews
-
----
-
-# ⭐ Support
-
-If this repository helps you learn SQL for AI Engineering, consider giving it a ⭐ on GitHub.
-
-It helps others discover the project and motivates future improvements.
-
----
-
-# 📄 License
-
-This project is released under the MIT License.
-
-You are free to use it for learning, teaching, and personal projects.
-
----
-
-# 🏷️ Topics
-
-SQL • SQLite • Python • Database • AI • RAG • LangChain • FastAPI • Data Engineering • Machine Learning • Generative AI
-
----
-
-# 👨‍💻 Author
-
-**Mohamed Kalid**
-
-AI Engineer specializing in Python, SQL, Generative AI, Retrieval-Augmented Generation (RAG), and Agentic AI Systems.
+Mohamed Kalid, building AI engineering skills in Python, SQL, generative AI, RAG and agentic AI.
 
 - GitHub: https://github.com/MohamedKalid-94
 - LinkedIn: https://www.linkedin.com/in/mohamed-kalid-4618921a7
