@@ -1,18 +1,2 @@
-# Core
-python-dotenv>=1.0
-
-# Data Processing
-pandas>=2.0
-
-# Database ORM
-SQLAlchemy>=2.0
-
-# Backend API
-fastapi>=0.100
-uvicorn>=0.20
-
-# Validation
-pydantic>=2.0
-
-# PostgreSQL
-psycopg2-binary>=2.9
+# Modules 01-10 use only the Python standard library (sqlite3, pathlib, subprocess).
+# There is nothing to install.
