@@ -1,57 +1,30 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
+
+titles = [
+    "All 12 scores folded into one row",
+    "One row for each subject (GROUP BY)",
+    "Pupils whose average is 70 or more (HAVING)",
+    "COUNT(*) versus COUNT(column) versus COUNT(DISTINCT column)",
+    "GROUP_CONCAT: the names of each department in one piece of text",
+    "Aggregates on an empty set: the Cloud department has no employees",
+]
+statements = read_statements(__file__)
+assert len(titles) == len(statements), "each title needs exactly one statement"
 
 connection = sqlite3.connect(DATABASE_PATH)
 cursor = connection.cursor()
 
-print("COUNT")
-print("-----")
-
-cursor.execute("""
-SELECT COUNT(*)
-FROM employees
-""")
-
-print(cursor.fetchone()[0])
-
-print("\nSUM")
-print("---")
-
-cursor.execute("""
-SELECT SUM(salary)
-FROM employees
-""")
-
-print(cursor.fetchone()[0])
-
-print("\nAVG")
-print("---")
-
-cursor.execute("""
-SELECT AVG(salary)
-FROM employees
-""")
-
-print(cursor.fetchone()[0])
-
-print("\nMIN")
-print("---")
-
-cursor.execute("""
-SELECT MIN(salary)
-FROM employees
-""")
-
-print(cursor.fetchone()[0])
-
-print("\nMAX")
-print("---")
-
-cursor.execute("""
-SELECT MAX(salary)
-FROM employees
-""")
-
-print(cursor.fetchone()[0])
+for number, (title, statement) in enumerate(zip(titles, statements)):
+    if number:
+        print()
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+    if not rows:
+        print("(no rows)")
 
 connection.close()

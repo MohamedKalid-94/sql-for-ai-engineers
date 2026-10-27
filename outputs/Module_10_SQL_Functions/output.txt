@@ -1,0 +1,402 @@
+======================================================================
+Module_10_SQL_Functions
+======================================================================
+======================================================================
+00_create_sample_tables.py
+======================================================================
+Table exam_scores created and filled
+
+How many scores
+---------------
+(12,)
+
+The first four scores
+---------------------
+('Asha', 'Maths', 92)
+('Asha', 'Science', 88)
+('Asha', 'English', 79)
+('Ravi', 'Maths', 65)
+======================================================================
+01_date_functions.py
+======================================================================
+Year and month of each joining date
+-----------------------------------
+('David', '2024-11-20', '2024-11')
+('Priya', '2024-12-05', '2024-12')
+('John', '2025-01-15', '2025-01')
+('Sara', '2025-02-10', '2025-02')
+('Alex', '2025-03-01', '2025-03')
+
+How long each person has worked, as of 2025-06-01
+-------------------------------------------------
+('David', 193, 7)
+('Priya', 178, 6)
+('John', 137, 5)
+('Sara', 111, 4)
+('Alex', 92, 3)
+
+The weekday each person joined
+------------------------------
+('David', '2024-11-20', 'Wednesday')
+('Priya', '2024-12-05', 'Thursday')
+('John', '2025-01-15', 'Wednesday')
+('Sara', '2025-02-10', 'Monday')
+('Alex', '2025-03-01', 'Saturday')
+
+Calendar helpers, all worked out from 2025-03-15
+------------------------------------------------
+('2025-03-17', '2025-01-01', '2025-03-31', '2025-12-31', '074')
+
+Unix timestamps: seconds since 1 January 1970
+---------------------------------------------
+('1735689600', '2025-01-01 00:00:00', '2025-01-31')
+
+How many people joined in each year
+-----------------------------------
+('2024', 2)
+('2025', 3)
+======================================================================
+02_string_functions.py
+======================================================================
+UPPER, LOWER and LENGTH
+-----------------------
+('John', 'JOHN', 'john', 4)
+('Sara', 'SARA', 'sara', 4)
+('David', 'DAVID', 'david', 5)
+('Priya', 'PRIYA', 'priya', 5)
+('Alex', 'ALEX', 'alex', 4)
+
+SUBSTR and INSTR: split an email at the @
+-----------------------------------------
+('john@gmail.com', 'john', 'gmail.com')
+('sara@gmail.com', 'sara', 'gmail.com')
+('david@gmail.com', 'david', 'gmail.com')
+('priya@gmail.com', 'priya', 'gmail.com')
+('alex@gmail.com', 'alex', 'gmail.com')
+
+Joining text with || and formatting with printf
+-----------------------------------------------
+('John works in department 1', 'John   earns 75000.00')
+('Sara works in department 2', 'Sara   earns 85000.00')
+('David works in department 3', 'David  earns 65000.00')
+('Priya works in department 1', 'Priya  earns 90000.00')
+('Alex works in department 5', 'Alex   earns 72000.00')
+
+TRIM, LTRIM and RTRIM remove unwanted characters
+------------------------------------------------
+('[hello]', '[hello   ]', '[   hello]', 'hi')
+
+Clean messy names: first letter big, the rest small
+---------------------------------------------------
+('DAVID', 'David')
+('pRiYa  ', 'Priya')
+('  sARA ', 'Sara')
+
+REPLACE, UNICODE, CHAR, HEX and INSTR
+-------------------------------------
+('hello SQL', 65, 'Hi', '4869', 3)
+
+Count the words in a sentence (count the spaces, add 1)
+-------------------------------------------------------
+('SQL is a skill every AI engineer needs', 8)
+======================================================================
+03_aggregate_functions.py
+======================================================================
+All 12 scores folded into one row
+---------------------------------
+(12, 880, 73.33, 45, 94)
+
+One row for each subject (GROUP BY)
+-----------------------------------
+('English', 4, 292, 73.0)
+('Maths', 4, 287, 71.75)
+('Science', 4, 301, 75.25)
+
+Pupils whose average is 70 or more (HAVING)
+-------------------------------------------
+('Meena', 3, 270, 90.0)
+('Asha', 3, 259, 86.33)
+
+COUNT(*) versus COUNT(column) versus COUNT(DISTINCT column)
+-----------------------------------------------------------
+(5, 2, 4)
+
+GROUP_CONCAT: the names of each department in one piece of text
+---------------------------------------------------------------
+(1, 'John, Priya')
+(2, 'Sara')
+(3, 'David')
+(5, 'Alex')
+
+Aggregates on an empty set: the Cloud department has no employees
+-----------------------------------------------------------------
+(None, 0.0, 0, None)
+======================================================================
+04_numeric_functions.py
+======================================================================
+ROUND and ABS
+-------------
+(4567.89, 4568.0, 4600.0, 250, 12.5)
+
+Division with whole numbers versus decimals
+-------------------------------------------
+(3, 3.5, 1, -3, -1)
+
+MAX and MIN with several arguments (a floor and a cap)
+------------------------------------------------------
+('John', 75000.0, 75000.0, 75000.0)
+('Sara', 85000.0, 85000.0, 80000.0)
+('David', 65000.0, 70000.0, 65000.0)
+('Priya', 90000.0, 90000.0, 80000.0)
+('Alex', 72000.0, 72000.0, 72000.0)
+
+A raise and a monthly pay, rounded to 2 decimals
+------------------------------------------------
+('John', 75000.0, 80625.0, 6250.0)
+('Sara', 85000.0, 91375.0, 7083.33)
+('David', 65000.0, 69875.0, 5416.67)
+('Priya', 90000.0, 96750.0, 7500.0)
+('Alex', 72000.0, 77400.0, 6000.0)
+
+Math functions: CEIL, FLOOR, SQRT and POWER
+-------------------------------------------
+(8, 7, 12, 1024, 1.4142)
+======================================================================
+05_text_image_functions.py
+======================================================================
+TEXT counts characters, bytes are counted by BLOB
+-------------------------------------------------
+('héllo', 5, 6, 'text', 'blob')
+
+HEX, UNICODE, CHAR and ZEROBLOB
+-------------------------------
+('4869', 'FF00', 65, 'Hi', 8)
+
+Two files stored: a text file and a picture
+
+What was stored (the picture is a BLOB)
+---------------------------------------
+('greeting.txt', 'text', 'text', 17, '48656C6C')
+('tiny_red.png', 'image', 'blob', 120, '89504E47')
+
+Is it really a PNG? The first 8 bytes say so
+--------------------------------------------
+('tiny_red.png', 1, '00000004', '00000004')
+
+Storage used by the two files
+-----------------------------
+(137,)
+
+Reading the picture back into Python
+------------------------------------
+Python gets it back as                  : bytes
+Identical to the picture we stored      : True
+Width x height read from the file header: 4 x 4
+======================================================================
+06_statistical_functions.py
+======================================================================
+The basics: count, mean, lowest, highest and spread
+---------------------------------------------------
+(12, 73.33, 45, 94, 49)
+
+The median, worked out in pure SQL
+----------------------------------
+(74.5,)
+
+Standard deviation: how spread out the scores are
+-------------------------------------------------
+(16.32, 17.05)
+
+Mean and standard deviation for each subject
+--------------------------------------------
+('English', 73.0, 16.79)
+('Maths', 71.75, 21.19)
+('Science', 75.25, 18.06)
+
+The three highest scores, measured in standard deviations from the mean (z-score)
+---------------------------------------------------------------------------------
+('Meena', 'English', 94, 1.2)
+('Asha', 'Maths', 92, 1.1)
+('Meena', 'Science', 91, 1.0)
+======================================================================
+07_logical_functions.py
+======================================================================
+CASE: a grade for each of Asha's scores
+---------------------------------------
+('Maths', 92, 'A')
+('Science', 88, 'B')
+('English', 79, 'B')
+
+How many scores earned each grade
+---------------------------------
+('A', 3)
+('B', 3)
+('C', 3)
+('F', 3)
+
+IIF: subjects passed and failed (pass mark 60)
+----------------------------------------------
+('Asha', 3, 0)
+('Kiran', 1, 2)
+('Meena', 3, 0)
+('Ravi', 2, 1)
+
+AND, OR and NOT give 1 or 0, and NULL when the answer is unknown
+----------------------------------------------------------------
+(1, 0, 1, 1, 1, None, 0, 1)
+
+CASE with IN: group departments into teams
+------------------------------------------
+('John', 'AI team')
+('Sara', 'Python team')
+('David', 'Other')
+('Priya', 'AI team')
+('Alex', 'AI team')
+======================================================================
+08_cursor_functions.py
+======================================================================
+1. What a cursor knows after a SELECT
+-------------------------------------
+Column names (description): ['emp_id', 'name', 'salary']
+Rows counted (rowcount)   : -1 <- -1 means a SELECT does not count rows
+Batch size (arraysize)    : 1
+
+2. Fetching in batches of 2 (fetchmany)
+---------------------------------------
+Batch 1: [(101, 'John', 75000.0), (102, 'Sara', 85000.0)]
+Batch 2: [(103, 'David', 65000.0), (104, 'Priya', 90000.0)]
+Batch 3: [(105, 'Alex', 72000.0)]
+
+3. Reading a row by column name (row_factory)
+---------------------------------------------
+first['name']  : John
+first['salary']: 75000.0
+as a dict      : {'emp_id': 101, 'name': 'John', 'salary': 75000.0}
+keys           : ['emp_id', 'name', 'salary']
+
+4. What a cursor reports after changing data
+--------------------------------------------
+UPDATE rowcount          : 2 rows changed
+INSERT lastrowid         : 6 <- the id the new row received
+INSERT rowcount          : 1
+DELETE rowcount          : 1
+connection.total_changes : 4
+
+After rollback, John's salary is back to: 75000.0
+======================================================================
+09_json_functions.py
+======================================================================
+Table user_profiles created with 3 JSON profiles
+
+json_extract: pull single values out of the JSON text
+-----------------------------------------------------
+(1, 'Asha', 30, 'Pune')
+(2, 'Ravi', 25, 'Delhi')
+(3, 'Meena', 28, 'Chennai')
+
+Lists: the first skill and how many skills
+------------------------------------------
+('Asha', 'SQL', 3)
+('Ravi', 'SQL', 2)
+('Meena', 'Python', 4)
+
+json_each: one row for every skill, then filter for Python
+----------------------------------------------------------
+('Asha', 'Python')
+('Meena', 'Python')
+
+How many people have each skill
+-------------------------------
+('SQL', 3)
+('Python', 2)
+('FastAPI', 1)
+('HTML', 1)
+('LangGraph', 1)
+('RAG', 1)
+
+json_object: build JSON from table columns
+------------------------------------------
+('{"emp_id":101,"name":"John"}',)
+('{"emp_id":102,"name":"Sara"}',)
+
+json_group_array: roll many rows into one JSON list
+---------------------------------------------------
+('["John","Priya"]',)
+
+json_set: change two values inside the JSON
+-------------------------------------------
+Rows changed: 1
+('Asha', 31, 'Mumbai', '{"name":"Asha","age":31,"skills":["SQL","Python","RAG"],"address":{"city":"Mumbai","country":"India"}}')
+
+Try to store text that is not valid JSON
+Rejected: CHECK constraint failed: json_valid(profile)
+======================================================================
+10_conversion_functions.py
+======================================================================
+CAST: change a value from one type to another
+---------------------------------------------
+(42, 3.75, 3, '65', 5.0)
+
+CAST never fails: odd inputs give odd answers
+---------------------------------------------
+(12, 0, 0, None, 2025)
+
+SQLite also converts quietly: + is maths, || joins text
+-------------------------------------------------------
+(15, '105', 12, 2, 2.5, 0)
+
+A text number still matches a number column (column affinity)
+-------------------------------------------------------------
+(101, 'John')
+
+printf: turn numbers into formatted text
+----------------------------------------
+('00042', '3.14', 'ff', 'Asha has 4 letters', ' 87.5%')
+
+CAST between bytes and text
+---------------------------
+('Hello', '48656C6C6F')
+
+Salary as text for a report, and as a whole number
+--------------------------------------------------
+('John', 'Rs 75000.00', 75000)
+('Sara', 'Rs 85000.00', 85000)
+('David', 'Rs 65000.00', 65000)
+('Priya', 'Rs 90000.00', 90000)
+('Alex', 'Rs 72000.00', 72000)
+======================================================================
+11_datatype_functions.py
+======================================================================
+The five storage classes
+------------------------
+('integer', 'real', 'text', 'blob', 'null')
+
+What type does a calculation give?
+----------------------------------
+('integer', 'real', 'integer', 'integer', 'text')
+
+A column typed INTEGER accepts almost anything (read amount_stored_as)
+----------------------------------------------------------------------
+(1, 10, 'integer', 'ten', 'text')
+(2, 20, 'integer', 'twenty', 'text')
+(3, 30, 'integer', 'thirty', 'text')
+(4, 30.5, 'real', 'thirty and a half', 'text')
+(5, 'abc', 'text', 'letters', 'text')
+(6, None, 'null', 'nothing', 'text')
+(7, 5, 'integer', '99', 'text')
+
+The declared types: a preference, not a rule
+--------------------------------------------
+('id', 'INTEGER')
+('amount', 'INTEGER')
+('label', 'TEXT')
+
+A STRICT table makes the declared type a real rule
+--------------------------------------------------
+Inserted 10 and '20' (the text '20' was converted to a number)
+Rejected: cannot store TEXT value in INTEGER column strict_amounts.amount
+
+Rows in the STRICT table
+------------------------
+(1, 10, 'integer')
+(2, 20, 'integer')

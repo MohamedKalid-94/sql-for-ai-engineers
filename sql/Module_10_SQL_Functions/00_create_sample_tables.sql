@@ -1,26 +1,33 @@
--- =====================================================
--- Module 10 : SQL Functions
--- 00_create_sample_tables.sql
--- =====================================================
+-- Lesson 0 of 11 | Create Sample Tables
+-- The shared setup gave this module 5 employees and 5 departments.
+-- Several lessons need numbers to measure, so we add a small table of exam scores.
+-- Four pupils each sat three subjects, which makes 12 scores.
 
-DROP TABLE IF EXISTS employees;
-
-CREATE TABLE employees (
-    emp_id INTEGER PRIMARY KEY,
-    emp_name TEXT NOT NULL,
-    email TEXT UNIQUE,
-    salary REAL,
-    department_id INTEGER,
-    phone TEXT,
-    joining_date DATE,
-    is_active INTEGER
+CREATE TABLE exam_scores (
+    score_id INTEGER PRIMARY KEY,
+    student  TEXT NOT NULL,
+    subject  TEXT NOT NULL,
+    score    INTEGER NOT NULL CHECK (score BETWEEN 0 AND 100)
 );
 
-INSERT INTO employees
-(emp_id, emp_name, email, salary, department_id, phone, joining_date, is_active)
-VALUES
-(101,'John','john@gmail.com',75000,1,'9876543210','2025-01-15',1),
-(102,'Sara','sara@gmail.com',85000,2,NULL,'2025-02-10',1),
-(103,'David','david@gmail.com',65000,3,NULL,NULL,1),
-(104,'Priya','priya@gmail.com',90000,1,'9123456780','2024-12-01',1),
-(105,'Alex','alex@gmail.com',72000,5,NULL,NULL,1);
+INSERT INTO exam_scores (student, subject, score) VALUES
+    ('Asha',  'Maths',   92),
+    ('Asha',  'Science', 88),
+    ('Asha',  'English', 79),
+    ('Ravi',  'Maths',   65),
+    ('Ravi',  'Science', 70),
+    ('Ravi',  'English', 58),
+    ('Meena', 'Maths',   85),
+    ('Meena', 'Science', 91),
+    ('Meena', 'English', 94),
+    ('Kiran', 'Maths',   45),
+    ('Kiran', 'Science', 52),
+    ('Kiran', 'English', 61);
+
+SELECT COUNT(*) AS scores_in_table
+FROM exam_scores;
+
+SELECT student, subject, score
+FROM exam_scores
+ORDER BY score_id
+LIMIT 4;
