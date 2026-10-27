@@ -5,7 +5,7 @@ Learn SQL by running it. Every lesson is a pair of files: a `.sql` file with the
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![SQLite](https://img.shields.io/badge/SQLite-3.35%2B-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
-
+![CI](https://github.com/MohamedKalid-94/sql-for-ai-engineers/actions/workflows/ci.yml/badge.svg)
 ![Execution Output](assets/execution_output.png)
 
 ## Why SQL matters for AI engineering
