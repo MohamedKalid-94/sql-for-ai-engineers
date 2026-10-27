@@ -1,0 +1,156 @@
+======================================================================
+Module_08_Index
+======================================================================
+======================================================================
+00_create_sample_tables.py
+======================================================================
+Table pupils created and filled with generated rows
+
+How many pupils
+---------------
+(20000,)
+
+The first three pupils
+----------------------
+(1, 'Pupil 1', 'Pune', 37, 'R00001')
+(2, 'Pupil 2', 'Delhi', 74, 'R00002')
+(3, 'Pupil 3', 'Mumbai', 10, 'R00003')
+
+Pupils in each city
+-------------------
+('Chennai', 4000)
+('Delhi', 4000)
+('Kochi', 4000)
+('Mumbai', 4000)
+('Pune', 4000)
+======================================================================
+01_indexes.py
+======================================================================
+Pupils with exactly 77 marks: 198
+
+No index on marks: SQLite must read every row (SCAN)
+----------------------------------------------------
+   SCAN pupils
+
+Search by the primary key: already fast (SEARCH)
+------------------------------------------------
+   SEARCH pupils USING INTEGER PRIMARY KEY (rowid=?)
+======================================================================
+02_create_index.py
+======================================================================
+
+Before the index
+----------------
+   SCAN pupils
+
+Three indexes created: idx_pupils_marks, idx_pupils_city, idx_pupils_name
+
+After the index (the very same query)
+-------------------------------------
+   SEARCH pupils USING INDEX idx_pupils_marks (marks=?)
+
+Same answer as before: 198 pupils with 77 marks
+======================================================================
+03_drop_index.py
+======================================================================
+
+With the index idx_pupils_name
+------------------------------
+   SEARCH pupils USING INDEX idx_pupils_name (name=?)
+
+DROP INDEX idx_pupils_name done
+
+Without the index (back to reading every row)
+---------------------------------------------
+   SCAN pupils
+
+DROP INDEX IF EXISTS on a missing index: no error
+DROP INDEX on a missing index: rejected -> no such index: idx_pupils_name
+
+Pupils still in the table: 20000 <- dropping an index never touches the data
+======================================================================
+04_show_indexes.py
+======================================================================
+All indexes in this database
+----------------------------
+  sqlite_autoindex_departments_1   on departments
+  sqlite_autoindex_employees_1     on employees
+  idx_pupils_city                  on pupils
+  idx_pupils_marks                 on pupils
+
+Indexes on the pupils table (origin c = CREATE INDEX)
+-----------------------------------------------------
+  idx_pupils_city      unique: 0 | origin: c
+  idx_pupils_marks     unique: 0 | origin: c
+
+Columns inside idx_pupils_marks
+-------------------------------
+  position 0: column 'marks'
+
+The command that built it, as SQLite stored it
+----------------------------------------------
+  CREATE INDEX idx_pupils_marks ON pupils (marks)
+======================================================================
+05_unique_index.py
+======================================================================
+Unique index idx_pupils_roll_code created
+
+How SQLite finds one roll code
+------------------------------
+   SEARCH pupils USING INDEX idx_pupils_roll_code (roll_code=?)
+
+The pupil with roll code R00123
+-------------------------------
+(123, 'Pupil 123')
+
+Try to add a pupil with a roll code that already exists
+Rejected: UNIQUE constraint failed: pupils.roll_code
+
+Try to make a unique index on city (it has many repeats)
+Rejected: UNIQUE constraint failed: pupils.city
+
+Pupils in the table: 20000 <- neither bad change got in
+======================================================================
+06_clustered_index.py
+======================================================================
+Rows copied into the WITHOUT ROWID table: 20000
+
+Equivalent 1: pupils is sorted by its rowid (pupil_id)
+------------------------------------------------------
+   SEARCH pupils USING INTEGER PRIMARY KEY (rowid=?)
+
+Equivalent 2: pupils_by_code is sorted by its PRIMARY KEY (roll_code)
+---------------------------------------------------------------------
+   SEARCH pupils_by_code USING PRIMARY KEY (roll_code=?)
+
+A range of roll codes comes out already in order
+------------------------------------------------
+   ('R00010', 'Pupil 10')
+   ('R00011', 'Pupil 11')
+   ('R00012', 'Pupil 12')
+   ('R00013', 'Pupil 13')
+
+Its plan has no extra sorting step, because the rows are stored in order
+------------------------------------------------------------------------
+   SEARCH pupils_by_code USING PRIMARY KEY (roll_code>? AND roll_code<?)
+======================================================================
+07_non_clustered_index.py
+======================================================================
+Index on two columns created: idx_pupils_city_marks (city, marks)
+
+Uses city and marks together, then visits the table for the name
+----------------------------------------------------------------
+   SEARCH pupils USING INDEX idx_pupils_city_marks (city=? AND marks=?)
+
+Asks only for city and marks: the index alone has everything (COVERING)
+-----------------------------------------------------------------------
+   SEARCH pupils USING COVERING INDEX idx_pupils_city_marks (city=? AND marks=?)
+
+Pune pupils with 77 marks: 39
+
+All non-clustered indexes on pupils now
+---------------------------------------
+  idx_pupils_city          unique: 0 | origin: c
+  idx_pupils_city_marks    unique: 0 | origin: c
+  idx_pupils_marks         unique: 0 | origin: c
+  idx_pupils_roll_code     unique: 1 | origin: c

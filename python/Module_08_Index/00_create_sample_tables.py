@@ -1,46 +1,28 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, read_statements
 
+(create_table, fill_table, count_rows,
+ first_rows, rows_per_city) = read_statements(__file__)
 
 connection = sqlite3.connect(DATABASE_PATH)
 cursor = connection.cursor()
 
-
-cursor.execute("""
-DROP TABLE IF EXISTS employees;
-""")
-
-
-cursor.execute("""
-CREATE TABLE employees
-(
-    emp_id INTEGER PRIMARY KEY,
-    emp_name TEXT,
-    email TEXT,
-    salary REAL,
-    department_id INTEGER
-);
-""")
-
-
-employees = [
-    (101, "John", "john@gmail.com", 75000, 1),
-    (102, "Sara", "sara@gmail.com", 85000, 2),
-    (103, "David", "david@gmail.com", 65000, 3),
-    (104, "Priya", "priya@gmail.com", 90000, 1),
-    (105, "Alex", "alex@gmail.com", 72000, 5)
-]
-
-
-cursor.executemany("""
-INSERT INTO employees
-VALUES (?, ?, ?, ?, ?)
-""", employees)
-
-
+cursor.execute(create_table)
+cursor.execute(fill_table)
 connection.commit()
+print("Table pupils created and filled with generated rows")
 
-print("Sample employee table created successfully")
 
+def show(title, statement):
+    print(f"\n{title}")
+    print("-" * len(title))
+    cursor.execute(statement)
+    for row in cursor.fetchall():
+        print(row)
+
+
+show("How many pupils", count_rows)
+show("The first three pupils", first_rows)
+show("Pupils in each city", rows_per_city)
 
 connection.close()
