@@ -1,96 +1,69 @@
 import sqlite3
-from config import DATABASE_PATH
+from config import DATABASE_PATH, get_connection, read_statements
 
+(create_classes, create_students, create_homework,
+ insert_classes, insert_students, insert_homework,
+ check_setting, read_students, read_homework,
+ bad_insert, bad_delete, delete_spare_class) = read_statements(__file__)
 
-connection = sqlite3.connect(DATABASE_PATH)
-
+# get_connection() switches foreign key checking ON
+connection = get_connection()
 cursor = connection.cursor()
 
-
-cursor.execute(
-    "PRAGMA foreign_keys = ON"
-)
-
-
-cursor.execute("""
-DROP TABLE IF EXISTS employees_fk
-""")
-
-
-cursor.execute("""
-DROP TABLE IF EXISTS departments_fk
-""")
-
-
-cursor.execute("""
-CREATE TABLE departments_fk
-(
-    dept_id INTEGER PRIMARY KEY,
-    dept_name TEXT
-)
-""")
-
-
-cursor.execute("""
-CREATE TABLE employees_fk
-(
-    emp_id INTEGER PRIMARY KEY,
-    name TEXT,
-    dept_id INTEGER,
-
-    FOREIGN KEY(dept_id)
-    REFERENCES departments_fk(dept_id)
-)
-""")
-
-
-cursor.executemany(
-    """
-    INSERT INTO departments_fk
-    VALUES (?,?)
-    """,
-    [
-        (1,"AI"),
-        (2,"Python")
-    ]
-)
-
-
-cursor.executemany(
-    """
-    INSERT INTO employees_fk
-    VALUES (?,?,?)
-    """,
-    [
-        (101,"John",1),
-        (102,"Sara",2)
-    ]
-)
-
-
+cursor.execute(create_classes)
+cursor.execute(create_students)
+cursor.execute(create_homework)
+cursor.execute(insert_classes)
+cursor.execute(insert_students)
+cursor.execute(insert_homework)
 connection.commit()
 
-
-print("FOREIGN KEY Result")
-print("------------------")
-
-
-query = """
-SELECT
-employees_fk.name,
-departments_fk.dept_name
-
-FROM employees_fk
-
-JOIN departments_fk
-
-ON employees_fk.dept_id =
-departments_fk.dept_id
-"""
+cursor.execute(check_setting)
+print("PRAGMA foreign_keys with get_connection():", cursor.fetchone()[0])
 
 
-for row in cursor.execute(query):
-    print(row)
+def show(title, statement):
+    print(title)
+    print("-" * len(title))
+    cursor.execute(statement)
+    for row in cursor.fetchall():
+        print(row)
 
+
+print()
+show("Students and their classes", read_students)
+
+print()
+show("Homework before any delete", read_homework)
+
+print("\nTry to put a student in class 99 (it does not exist)")
+try:
+    cursor.execute(bad_insert)
+except sqlite3.IntegrityError as error:
+    print("Rejected:", error)
+
+print("\nTry to delete class 1 (Asha is still in it)")
+try:
+    cursor.execute(bad_delete)
+except sqlite3.IntegrityError as error:
+    print("Rejected:", error)
+
+print("\nDelete the spare class 3 (nobody is in it)")
+cursor.execute(delete_spare_class)
+print("Classes deleted:", cursor.rowcount)
+connection.commit()
+
+print()
+show("Homework after the delete (the class 3 homework went with it)", read_homework)
 
 connection.close()
+
+print("\nThe same bad insert with a plain sqlite3.connect()")
+plain = sqlite3.connect(DATABASE_PATH)
+plain_cursor = plain.cursor()
+plain_cursor.execute(check_setting)
+print("PRAGMA foreign_keys with a plain connect:", plain_cursor.fetchone()[0])
+plain_cursor.execute(bad_insert)
+print("Accepted! Nothing checked whether class 99 exists.")
+plain.rollback()       # undo it, so the bad row never stays
+plain.close()

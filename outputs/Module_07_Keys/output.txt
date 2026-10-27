@@ -1,0 +1,121 @@
+======================================================================
+Module_07_Keys
+======================================================================
+======================================================================
+01_unique_key.py
+======================================================================
+Two accounts created
+
+Try to reuse an email that is already taken
+Rejected: UNIQUE constraint failed: accounts.email
+
+Two accounts with no email at all (NULL is allowed many times)
+Both accepted
+
+Accounts in the table
+---------------------
+(1, 'kalid', 'kalid@gmail.com')
+(2, 'john', 'john@gmail.com')
+(3, 'guest1', None)
+(4, 'guest2', None)
+======================================================================
+02_primary_key.py
+======================================================================
+Three students added (Meena got her id automatically)
+
+Try to give a new student the id 1
+Rejected: UNIQUE constraint failed: students.student_id
+
+Students in the table
+---------------------
+(1, 'Asha')
+(2, 'Ravi')
+(3, 'Meena')
+
+A surprise: a TEXT primary key without NOT NULL
+-----------------------------------------------
+(None, 'A row with no code')
+SQLite accepted a NULL primary key. Add NOT NULL to a TEXT key to be safe.
+======================================================================
+03_foreign_key.py
+======================================================================
+PRAGMA foreign_keys with get_connection(): 1
+
+Students and their classes
+--------------------------
+('Asha', 'Python Basics')
+('Ravi', 'SQL Basics')
+
+Homework before any delete
+--------------------------
+(1, 'Variables worksheet', 3)
+(2, 'Loops worksheet', 3)
+(3, 'Joins worksheet', 2)
+
+Try to put a student in class 99 (it does not exist)
+Rejected: FOREIGN KEY constraint failed
+
+Try to delete class 1 (Asha is still in it)
+Rejected: FOREIGN KEY constraint failed
+
+Delete the spare class 3 (nobody is in it)
+Classes deleted: 1
+
+Homework after the delete (the class 3 homework went with it)
+-------------------------------------------------------------
+(3, 'Joins worksheet', 2)
+
+The same bad insert with a plain sqlite3.connect()
+PRAGMA foreign_keys with a plain connect: 0
+Accepted! Nothing checked whether class 99 exists.
+======================================================================
+04_composite_key.py
+======================================================================
+Three enrollments added
+Student 1 is in two classes, and class 1 has two students: all allowed
+
+Enrollments in the table
+------------------------
+(1, 1, '2025-06-01')
+(1, 2, '2025-06-02')
+(2, 1, '2025-06-01')
+
+Try to enroll student 1 in class 1 a second time
+Rejected: UNIQUE constraint failed: enrollments.student_id, enrollments.class_id
+======================================================================
+05_alternate_key.py
+======================================================================
+Two members added
+
+Find a row by its PRIMARY key (member_id = 2)
+---------------------------------------------
+(2, 'john', 'john@gmail.com', 'John D')
+
+Find the same kind of row by an ALTERNATE key (username)
+--------------------------------------------------------
+(1, 'kalid', 'kalid@gmail.com', 'Kalid M')
+
+Find a row by another ALTERNATE key (email)
+-------------------------------------------
+(2, 'john', 'john@gmail.com', 'John D')
+
+Try to add a second member called kalid
+Rejected: UNIQUE constraint failed: members.username
+
+Try to add a member with john's email
+Rejected: UNIQUE constraint failed: members.email
+======================================================================
+06_keys_in_real_tables.py
+======================================================================
+PRIMARY KEY of employees
+------------------------
+['emp_id']
+
+UNIQUE keys of employees (SQLite builds a hidden index for each one)
+--------------------------------------------------------------------
+sqlite_autoindex_employees_1 | unique: 1 | made by: u (u = a UNIQUE rule)
+
+FOREIGN KEYS of employees
+-------------------------
+dept_id -> departments(dept_id)
+manager_id -> employees(emp_id)
