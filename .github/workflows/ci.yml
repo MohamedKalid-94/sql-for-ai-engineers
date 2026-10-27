@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  run-modules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Show versions
+        run: python -c "import sys, sqlite3; print(sys.version); print('SQLite', sqlite3.sqlite_version)"
+      - name: Run every module
+        run: python run_module.py --all
+      - name: Keep the execution logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-outputs
+          path: outputs/
